@@ -1,5 +1,5 @@
 # Ohjelmistotekniikan palautusrepositorio
-Tähän repositorioon teen **laskaritehtäviä** ja tänne rakentuu hiljalleen myös **harjoitustyö**. Repositorio on *julkinen*, jotta ohjaajat voivat tarkastella tehtäviä ja etenemistä.
+Tervetuloa! Tähän repositorioon teen **laskaritehtäviä** ja tänne rakentuu hiljalleen myös **harjoitustyö**. Repositorio on *julkinen*, jotta ohjaajat voivat tarkastella tehtäviä ja etenemistä.
 ## Tehtävät
 ### Viikko 1
 [gitlog.txt](https://github.com/maariaw/ot-harjoitustyo/blob/main/laskarit/viikko1/gitlog.txt)
