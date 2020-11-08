@@ -2,5 +2,6 @@
 
 Päivä | Tunnit | Tehtävät
 ----- | ------ | --------
-7.11. | 1 | Projektin luonti, dokumentaation aloitus
-**_yht._** |  |  
+7.11. | 3 | Projektin luonti, dokumentaation aloitus, vaatimusmäärittely
+8.11. | 2 | Visuaalinen luonnos sovelluksen käyttöliittymästä
+**_yht._** | 5 |  
