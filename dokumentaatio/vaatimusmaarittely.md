@@ -8,6 +8,12 @@ Sovellus on tarkoitettu avuksi ja iloksi viikoittaisen agendan suunnittelussa. S
 
 Sovelluksen kehitys aloitetaan yhdellä käyttäjäroolilla. Normaali *käyttäjä* pystyy lisäämään tapahtumia sekä muokkaamaan ja poistamaan lisäämiään tapahtumia. Myöhemmin on tarkoitus lisätä *ylläpitäjän* rooli, joka pystyy muokkaamaan sellaisia sovelluksen ominaisuuksia, jotka aluksi on suoraan koodattuna. Ylläpitäjä pystyy esimerkiksi muokkaamaan myös kalenterissa valmiiksi olevia merkintöjä, kuten kansallisia juhlapäiviä. Ylläpitäjänä pääsisi lisäksi muokkaamaan kuvagalleriaa. Sovellukselta haluttu ominaisuus on, että toinen henkilö voi valita kalenterikuvat yllätykseksi käyttäjälle. Näin kuvavalikoiman voi myös vaihtaa joka vuosi.
 
+## Käyttöliittymäluonnos
+
+Sovelluksessa on yksi näkymä, joka aukeaa sovelluksen käynnistyessä. Sovelluksessa on nappi uuden kalenterimerkinnän lisäämiseen. Klikkaamalla aiemmin luotua merkintää voi valita, haluaako muokata merkintää tai poistaa sen. Poisto tapahtuu varmistusikkunan kautta.
+
+![Luonnoskuva sovelluksesta](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/vm-1.png)
+
 ## Perusversion toiminnallisuus
 
 * Sovelluksessa näkyy kuva
