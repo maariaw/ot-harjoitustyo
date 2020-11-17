@@ -1,7 +1,7 @@
 # Viikkokalenteri
 Sovellus on tarkoitettu avuksi ja iloksi viikoittaisen agendan suunnittelussa. Seitsemän päivän tärkeiden tapahtumien ja merkintöjen lisäksi kalenterinäkymässä on viikoittain vaihtuva kuva.
 
-Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistoekniikan kurssin harjoitustyönä.
+Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistotekniikan kurssin harjoitustyönä.
 
 ## Dokumentaatio
 
@@ -24,7 +24,7 @@ Testikattavuusraportti luodaan komennolla
 
 > mvn jacoco:report
 
-Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto target/site/jacoco/index.html
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedoston target/site/jacoco/index.html
 
 ### Suoritettavan jarin generointi
 Komento
