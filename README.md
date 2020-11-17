@@ -1,7 +1,34 @@
-# Ohjelmistotekniikan palautusrepositorio
-Tervetuloa! Tähän repositorioon teen **laskaritehtäviä** ja tänne rakentuu hiljalleen myös **harjoitustyö**. Repositorio on *julkinen*, jotta ohjaajat voivat tarkastella tehtäviä ja etenemistä.
-## Tehtävät
-### Viikko 1
-[gitlog.txt](https://github.com/maariaw/ot-harjoitustyo/blob/main/laskarit/viikko1/gitlog.txt)
+# Viikkokalenteri
+Sovellus on tarkoitettu avuksi ja iloksi viikoittaisen agendan suunnittelussa. Seitsemän päivän tärkeiden tapahtumien ja merkintöjen lisäksi kalenterinäkymässä on viikoittain vaihtuva kuva.
 
-[komentorivi.txt](https://github.com/maariaw/ot-harjoitustyo/blob/main/laskarit/viikko1/komentorivi.txt)
+Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistotekniikan kurssin harjoitustyönä.
+
+## Dokumentaatio
+
+[Vaatimusmäärittely](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
+
+[Työaikakirjanpito](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
+
+## Komentorivitoiminnot
+### Suorittaminen
+Ohjelman voi suorittaa komennolla
+
+> mvn compile exec:java -Dexec.mainClass=viikkokalenteri.Main
+
+### Testaus
+Testit suoritetaan komennolla
+
+> mvn test
+
+Testikattavuusraportti luodaan komennolla
+
+> mvn jacoco:report
+
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedoston target/site/jacoco/index.html
+
+### Suoritettavan jarin generointi
+Komento
+
+>mvn package
+
+generoi hakemistoon target suoritettavan jar-tiedoston Viikkokalenteri-1.0-SNAPSHOT.jar
