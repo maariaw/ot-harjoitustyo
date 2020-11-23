@@ -31,4 +31,8 @@ public class TimeService {
     public void setTime(int year, int month, int day) {
         this.calendar.set(year, month, day);
     }
+    
+    public Calendar getCalendar() {
+        return this.calendar;
+    }
 }
