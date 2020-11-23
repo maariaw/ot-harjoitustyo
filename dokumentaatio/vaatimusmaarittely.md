@@ -39,6 +39,8 @@ Sovelluksessa on yksi näkymä, joka aukeaa sovelluksen käynnistyessä. Sovellu
 * Kuvien selaaminen taaksepäin, mutta ei eteenpäin (mahdollisesti voi kiinnittää vanhemman kuvan näkymään)
 * Muistutukset tulevan viikon tapahtumista
   * Käyttäjä voi valita, mistä tapahtumista haluaa muistutuksen edellisellä viikolla
+* Tapahtumien poistaminen bulkissa (esim. menneet)
+* Kalenterinäkymän muokkaaminen (viikon alkupäivä, päivämäärän merkintätapa ym.)
 * Koko viikkoa koskevat merkinnät
 * Graafisempi päivänäkymä
   * Lukujärjestysmäinen, ajastetut tapahtumat palkkeina tunneittain ym.
