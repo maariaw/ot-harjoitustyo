@@ -1,19 +1,23 @@
+package viikkokalenteri.domain;
 
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import static org.hamcrest.Matchers.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import viikkokalenteri.domain.TimeService;
 
 
 public class TimeServiceTest {
     private TimeService service;
+    private FakeEventDao eventDao;
     
     @Before
     public void setUp() {
-        this.service = new TimeService();
+        this.eventDao = new FakeEventDao();
+        this.service = new TimeService(eventDao);
     }
     
     @Test
@@ -56,11 +60,22 @@ public class TimeServiceTest {
         assertThat(week, greaterThan(51));
     }
     
+//    @Test
+//    public void timeIsNowWhenCreated() {
+//        Long now = System.currentTimeMillis();
+//        Calendar calendar = this.service.getCalendar();
+//        assertThat(calendar.getTimeInMillis(), is(both(greaterThan(now - 10000)).and(lessThan(now + 1))));
+//    }
+    
     @Test
-    public void timeIsNowWhenCreated() {
-        Long now = System.currentTimeMillis();
+    public void dateIsTodayWhenCreated() {
+        Date expectedDate = new Date();
         Calendar calendar = this.service.getCalendar();
-        assertThat(calendar.getTimeInMillis(), is(both(greaterThan(now - 10000)).and(lessThan(now + 1))));
+        Date actualDate = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat();
+        String expectedString = format.format(expectedDate);
+        String actualString = format.format(actualDate);
+        assertThat(actualString, is(equalTo(expectedString)));
     }
     
 
