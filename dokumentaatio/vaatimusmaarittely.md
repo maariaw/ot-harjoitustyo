@@ -20,11 +20,11 @@ Sovelluksessa on yksi näkymä, joka aukeaa sovelluksen käynnistyessä. Sovellu
   * Kuva vaihtuu joka viikko
   * Kuva liittyy vuodenaikaan
   * Kuvissa on söpöjä eläimiä
-* Käyttäjä näkee viikon numeron, viikonpäivät maanantaista sunnuntaihin ja päivämäärät
-* Käyttäjä voi selata kalenteria eteen- ja taaksepäin
-* Käyttäjä voi lisätä kalenteriin merkintöjä
+* Käyttäjä näkee viikon numeron, viikonpäivät maanantaista sunnuntaihin ja päivämäärät **TEHTY**
+* Käyttäjä voi selata kalenteria eteen- ja taaksepäin **TEHTY**
+* Käyttäjä voi lisätä kalenteriin merkintöjä **ALUSTAVA**
   * Merkinnällä on päivä, teksti ja mahdollisesti ajankohta
-* Käyttäjä näkee jokaisen päivän kohdalla sille päivälle kuuluvat merkinnät
+* Käyttäjä näkee jokaisen päivän kohdalla sille päivälle kuuluvat merkinnät **ALUSTAVA**
   * Kalenterissa on valmiina tärkeimmät kansalliset ja kansainväliset juhlapäivät
   * Koko päivää koskevat merkinnät ovat ylimpänä
   * Ajastetut merkinnät ovat kronologisessa järjestyksessä alkuajan mukaan
