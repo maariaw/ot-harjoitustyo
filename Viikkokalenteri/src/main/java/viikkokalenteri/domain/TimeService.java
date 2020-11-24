@@ -16,11 +16,14 @@ public class TimeService {
     public TimeService() {
         this.calendar = new GregorianCalendar();
         this.setLocalDate();
-        System.out.println(calendar.getTime());
     }
     
     public int getWeek() {
         return calendar.get(Calendar.WEEK_OF_YEAR);
+    }
+    
+    public LocalDate getDate() {
+        return this.date;
     }
     
     public void nextWeek() {

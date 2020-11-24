@@ -4,6 +4,7 @@ package viikkokalenteri.ui;
 import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Properties;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -47,7 +48,7 @@ public class ViikkokalenteriUi extends Application {
         calendar.setTitle("Viikkokalenteri");
         setWeekScene();
         
-        Scene weekview = new Scene(layout);
+        Scene weekview = new Scene(layout, 800, 1000);
         
         calendar.setScene(weekview);
         calendar.show();
@@ -112,26 +113,25 @@ public class ViikkokalenteriUi extends Application {
         return day;
     }
     
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     private void makeNewEventWindow() {
         Label dateText = new Label("Päivä:");
-        // DatePicker
-        DatePicker datePicker = new DatePicker();
+        
+        DatePicker datePicker = new DatePicker(this.timeService.getDate());
         
         Label descText = new Label("Tapahtuma:");
-        // String input
+        
         TextField description = new TextField();
         
-        
-        // Button for closing
         Button createButton = new Button("Vie kalenteriin");
         createButton.setOnAction((event) -> {
-            this.eventService.createEvent(datePicker.getValue(),
+            LocalDate date = datePicker.getValue();
+            String text = description.getText();
+            if (date != null && !text.isBlank()) {
+                this.eventService.createEvent(datePicker.getValue(),
                     description.getText());
             description.setText("");
+            this.setWeekScene();
+            }
         });
         
         VBox newEventContainer = new VBox();
@@ -144,4 +144,11 @@ public class ViikkokalenteriUi extends Application {
         newEventWindow.show();
         
     }
+    
+    public static void main(String[] args) {
+        Locale.setDefault(new Locale("fi", "FI"));
+        launch(args);
+    }
+    
 }
+

@@ -27,5 +27,10 @@ public class FakeEventDao implements EventDao {
     public HashMap<String, List<Event>> getAll() {
         return events;
     }
+
+    @Override
+    public List<Event> findEventsForDate(String date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

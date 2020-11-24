@@ -27,7 +27,7 @@ public class FileEventDao implements EventDao{
                 String date = parts[0];
                 List<Event> daysEvents = events.getOrDefault(date, new ArrayList<>());
                 daysEvents.add(new Event(date, parts[1]));
-                events.putIfAbsent(date, daysEvents);
+                events.put(date, daysEvents);
             }
         } catch (Exception e) {
             FileWriter writer = new FileWriter(new File(file));
@@ -52,7 +52,7 @@ public class FileEventDao implements EventDao{
         if (!daysEvents.contains(event)) {
             daysEvents.add(event);
         }
-        events.putIfAbsent(event.getDate(), daysEvents);
+        events.put(event.getDate(), daysEvents);
         save();
         return event;
     }
