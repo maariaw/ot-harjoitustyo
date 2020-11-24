@@ -32,3 +32,14 @@ Komento
 >mvn package
 
 generoi hakemistoon target suoritettavan jar-tiedoston Viikkokalenteri-1.0-SNAPSHOT.jar
+
+Tiedoston suorittamiseksi kansiossa täytyy olla myös tiedosto config.properties, joka sisältää vain tämän rivin:
+
+> eventFile=events.txt
+
+### Checkstyle
+Tiedoston [checkstyle](https://github.com/maariaw/ot-harjoitustyo/blob/main/Viikkokalenteri/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla
+
+> mvn jxr:jxr checkstyle:checkstyle
+
+Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto target/site/checkstyle.html
