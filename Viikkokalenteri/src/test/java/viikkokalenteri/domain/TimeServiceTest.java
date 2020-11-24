@@ -12,12 +12,10 @@ import static org.junit.Assert.*;
 
 public class TimeServiceTest {
     private TimeService service;
-    private FakeEventDao eventDao;
     
     @Before
     public void setUp() {
-        this.eventDao = new FakeEventDao();
-        this.service = new TimeService(eventDao);
+        this.service = new TimeService();
     }
     
     @Test
@@ -28,7 +26,7 @@ public class TimeServiceTest {
     
     @Test
     public void nextWeekAddsOneToWeekNumberWhenMiddleOfYear() {
-        this.service.setTime(2020, 8, 8);
+        this.service.setDate(2020, 8, 8);
         int before = this.service.getWeek();
         this.service.nextWeek();
         int after = this.service.getWeek();
@@ -37,7 +35,7 @@ public class TimeServiceTest {
     
     @Test
     public void nextWeekPutsWeekNumberToOneWhenDec28() {
-        this.service.setTime(2028, 11, 28);
+        this.service.setDate(2028, 11, 28);
         this.service.nextWeek();
         int week = this.service.getWeek();
         assertEquals(1, week);
@@ -45,7 +43,7 @@ public class TimeServiceTest {
     
     @Test
     public void lastWeekDeductsOneFromWeekNumberWhenMiddleOfYear() {
-        this.service.setTime(1983, 8, 8);
+        this.service.setDate(1983, 8, 8);
         int before = this.service.getWeek();
         this.service.lastWeek();
         int after = this.service.getWeek();
@@ -54,7 +52,7 @@ public class TimeServiceTest {
     
     @Test
     public void lastWeekPutsWeekNumberTo52or53WhenJan4() {
-        this.service.setTime(1965, 0, 4);
+        this.service.setDate(1965, 0, 4);
         this.service.lastWeek();
         int week = this.service.getWeek();
         assertThat(week, greaterThan(51));

@@ -8,16 +8,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
-import viikkokalenteri.dao.EventDao;
 
 public class TimeService {
     private GregorianCalendar calendar;
-    private EventDao eventDao;
+    private LocalDate date;
     
-    public TimeService(EventDao eventdao) {
-        this.eventDao = eventdao;
-        this.calendar = new GregorianCalendar(TimeZone.getDefault());
-        this.calendar.setTime(new Date());
+    public TimeService() {
+        this.calendar = new GregorianCalendar();
+        this.setLocalDate();
+        System.out.println(calendar.getTime());
     }
     
     public int getWeek() {
@@ -26,27 +25,45 @@ public class TimeService {
     
     public void nextWeek() {
         calendar.add(Calendar.DAY_OF_YEAR, 7);
+        this.setLocalDate();
     }
     
     public void lastWeek() {
         calendar.add(Calendar.DAY_OF_YEAR, -7);
+        this.setLocalDate();
     }
     
-    public void setTime(int year, int month, int day) {
+    public void setDate(int year, int month, int day) {
         this.calendar.set(year, month, day);
+        this.setLocalDate();
     }
     
     public Calendar getCalendar() {
         return this.calendar;
     }
     
-    public boolean createEvent(LocalDate date, String description) {
-        Event event = new Event(date.toString(), description);
-        try {   
-            eventDao.create(event);
-        } catch (Exception ex) {
-            return false;
+    public int getWeekDayIndex() {
+        int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+        int dayIndex;
+        if (weekDay == 1) {
+            dayIndex = 6;
+        } else {
+            dayIndex = weekDay - 2;
         }
-        return true;
+        return dayIndex;
+    }
+    
+    public LocalDate getDateOfWeekDay(int dayIndex) {
+        long dateDifference = dayIndex - this.getWeekDayIndex();
+        LocalDate newDate = this.date.plusDays(dateDifference);
+        return newDate;
+    }
+    
+    private void setLocalDate() {
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH) + 1;
+        int year = calendar.get(Calendar.YEAR);
+        this.date = LocalDate.of(year, month, day);
+        
     }
 }

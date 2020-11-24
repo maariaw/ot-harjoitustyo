@@ -6,3 +6,8 @@ Viikkokalenteri/target
 /Viikkokalenteri/nbproject/
 /Viikkokalenteri/events.txt
 /Viikkokalenteri/nbactions.xml
+/Viikkokalenteri/.vscode/
+..gitignore.swp
+Viikkokalenteri/.classpath
+Viikkokalenteri/.project
+Viikkokalenteri/.settings/
