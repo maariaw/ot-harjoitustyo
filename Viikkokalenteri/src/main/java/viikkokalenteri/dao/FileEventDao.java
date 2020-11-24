@@ -13,7 +13,7 @@ import viikkokalenteri.domain.Event;
  *
  * @author mawahlst
  */
-public class FileEventDao implements EventDao{
+public class FileEventDao implements EventDao {
     private String file;
     private HashMap<String, List<Event>> events;
     
@@ -35,7 +35,7 @@ public class FileEventDao implements EventDao{
         }
     }
     
-    private void save() throws Exception{
+    private void save() throws Exception {
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (String date : events.keySet()) {
                 for (Event event : events.get(date)) {
@@ -66,5 +66,4 @@ public class FileEventDao implements EventDao{
     public HashMap<String, List<Event>> getAll() {
         return events;
     }
-    
 }
