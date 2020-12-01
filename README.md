@@ -7,6 +7,8 @@ Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistotekniikan kur
 
 [Vaatimusmäärittely](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
 
+[Arkkitehtuurikuvaus](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
+
 [Työaikakirjanpito](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
 
 ## Komentorivitoiminnot
