@@ -1,7 +1,10 @@
 
 package viikkokalenteri.ui;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -72,15 +75,31 @@ public class ViikkokalenteriUi extends Application {
     public void setWeekScene() {
         this.layout.getChildren().clear();
         
-        StringBuilder imgfile = new StringBuilder("file:src/main/java/images/");
+        StringBuilder imgfile = new StringBuilder("file:src/main/java/resources/img/");
+        StringBuilder imgshort = new StringBuilder("/img/");
         if (this.timeService.isFuture() || this.timeService.getYearWeek() < 202045) {
             imgfile.append(Integer.toString(this.timeService.getYearWeekNow()));
+            imgshort.append(Integer.toString(this.timeService.getYearWeekNow()));
         } else {
             imgfile.append(Integer.toString(this.timeService.getYearWeek()));
+            imgshort.append(Integer.toString(this.timeService.getYearWeek()));
         }
         imgfile.append(".jpg");
+        imgshort.append(".jpg");
+//        System.out.println(imgfile.toString());
+//        System.out.println(imgshort.toString());
+        
+//        URL imgurl = this.getClass().getResource("202050.jpg");
+//        File imgdir = new File(imgurl.getFile());
+        
+//        InputStream imgInputStream = this.getClass().getResourceAsStream(imgshort.toString());
+//        Image picturefile = new Image(imgInputStream);
 
-        Image picturefile = new Image(imgfile.toString(), 800, 600, false, false);
+        
+        
+//           Netbeans-ajo
+        Image picturefile = new Image(imgfile.toString());
+        
         ImageView picture = new ImageView(picturefile);
         Pane pictureframe = new Pane();
         pictureframe.getChildren().add(picture);
