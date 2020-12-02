@@ -11,6 +11,8 @@ Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistotekniikan kur
 
 [Työaikakirjanpito](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
 
+[Release](https://github.com/maariaw/ot-harjoitustyo/releases/tag/v1.0-viikko5)
+
 ## Komentorivitoiminnot
 ### Suorittaminen
 Ohjelman voi suorittaa komennolla
