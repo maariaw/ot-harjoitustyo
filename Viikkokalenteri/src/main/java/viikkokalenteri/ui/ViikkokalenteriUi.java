@@ -7,14 +7,29 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Properties;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import viikkokalenteri.dao.FileEventDao;
 import viikkokalenteri.domain.Event;
@@ -26,7 +41,7 @@ public class ViikkokalenteriUi extends Application {
     private TimeService timeService;
     private EventService eventService;
     private DateTimeFormatter formatter;
-    private BorderPane layout; // Container for the whole view
+    private VBox layout; // Container for the whole view
     
     @Override
     public void init() throws Exception {
@@ -40,7 +55,7 @@ public class ViikkokalenteriUi extends Application {
         this.timeService = new TimeService();
         this.eventService = new EventService(eventDao);
         this.formatter = DateTimeFormatter.ofPattern("d'.'M'.'");
-        this.layout = new BorderPane();
+        this.layout = new VBox(8);
     }
 
     @Override
@@ -57,8 +72,18 @@ public class ViikkokalenteriUi extends Application {
     public void setWeekScene() {
         this.layout.getChildren().clear();
         
-        HBox weekPicker = new HBox();
+        Image picturefile = new Image("file:src/main/java/images/Veeti.jpg", 800, 600, false, false);
+        ImageView picture = new ImageView(picturefile);
+        Pane pictureframe = new Pane();
+        pictureframe.getChildren().add(picture);
+
+        HBox weekPicker = new HBox(6);
+        weekPicker.setPrefWidth(200);
+        weekPicker.setPrefHeight(20);
+        weekPicker.setAlignment(Pos.CENTER);
+
         Label week = new Label("Viikko " + this.timeService.getWeek());
+        week.setFont(new Font("Arial", 20));
         Button back = new Button("<");
         back.setOnAction((event) -> {
             this.timeService.lastWeek();
@@ -72,26 +97,41 @@ public class ViikkokalenteriUi extends Application {
         weekPicker.getChildren().add(back);
         weekPicker.getChildren().add(week);
         weekPicker.getChildren().add(forward);
-        
-        HBox days = createDayView();
-        
+
         Button createEvent = new Button("Uusi tapahtuma");
+
+        GridPane middlepanel = new GridPane();
+        middlepanel.add(createEvent, 1, 1);
+        middlepanel.add(weekPicker, 2, 1);
+
+        middlepanel.getColumnConstraints().add(new ColumnConstraints(5));
+        middlepanel.getColumnConstraints().add(new ColumnConstraints(195));
+        middlepanel.getColumnConstraints().add(new ColumnConstraints(400));
+        middlepanel.getColumnConstraints().add(new ColumnConstraints(200));
+
+        GridPane days = createDayView();
+        days.setPadding(new Insets(0, 5, 5, 5));
+        
         createEvent.setOnAction((event) -> {
             this.makeNewEventWindow();
         });
         
-        layout.setTop(createEvent);
-        layout.setCenter(weekPicker);
-        layout.setBottom(days);
+        layout.getChildren().add(pictureframe);
+        layout.getChildren().add(middlepanel);
+        layout.getChildren().add(days);
         
     }
     
-    public HBox createDayView() {
-        HBox days = new HBox();
+    public GridPane createDayView() {
+        GridPane days = new GridPane();
         
         for (int i = 0; i < 7; i++) {
-            days.getChildren().add(createADay(i));
+            days.add(createADay(i), i, 0);
+            ColumnConstraints column = new ColumnConstraints();
+            column.setPercentWidth(20);
+            days.getColumnConstraints().add(column);
         }
+        
         return days;
     }
     
@@ -100,16 +140,26 @@ public class ViikkokalenteriUi extends Application {
             "To", "Pe", "La", "Su"};
         LocalDate date = this.timeService.getDateOfWeekDay(dayOfWeekIndex);
         String fDate = date.format(formatter);
-        VBox day = new VBox();
+        VBox day = new VBox(5);
         VBox title = new VBox();
-        title.getChildren().add(new Label(titlesOfDays[dayOfWeekIndex]
-                + " " + fDate));
+        Label daytitle = new Label(titlesOfDays[dayOfWeekIndex]
+                + " " + fDate);
+        daytitle.setFont(new Font("Arial", 16));
+        daytitle.setPadding(new Insets(0,0,0,5));
+        title.getChildren().add(daytitle);
         day.getChildren().add(title);
-        VBox events = new VBox();
+        VBox events = new VBox(3);
+        events.setPadding(new Insets(3));
         for (Event event : this.eventService.getEventsForDay(date)) {
-            events.getChildren().add(new Label(event.getDescription()));
+            Label eventdesc = new Label(event.getDescription());
+            eventdesc.setWrapText(true);
+            eventdesc.setLineSpacing(-2);
+            events.getChildren().add(eventdesc);
         }
         day.getChildren().add(events);
+        day.setPrefHeight(365);
+        day.setBorder(new Border(new BorderStroke(Color.BLACK,
+            BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         return day;
     }
     
@@ -134,10 +184,11 @@ public class ViikkokalenteriUi extends Application {
             }
         });
         
-        VBox newEventContainer = new VBox();
+        VBox newEventContainer = new VBox(10);
+        newEventContainer.setPadding(new Insets(10, 10, 15, 10));
         newEventContainer.getChildren().addAll(dateText, datePicker, descText,
                 description, createButton);
-        Scene newEventScene = new Scene(newEventContainer);
+        Scene newEventScene = new Scene(newEventContainer, 300, 170);
         Stage newEventWindow = new Stage();
         newEventWindow.setTitle("Uusi tapahtuma");
         newEventWindow.setScene(newEventScene);
