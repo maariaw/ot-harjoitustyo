@@ -10,10 +10,12 @@ import java.util.GregorianCalendar;
 public class TimeService {
     private GregorianCalendar calendar;
     private LocalDate date;
+    private int yearWeekNow;
     
     public TimeService() {
         this.calendar = new GregorianCalendar();
         this.setLocalDate();
+        this.yearWeekNow = this.getYearWeek();
     }
     
     public int getWeek() {
@@ -65,6 +67,19 @@ public class TimeService {
         int month = calendar.get(Calendar.MONTH) + 1;
         int year = calendar.get(Calendar.YEAR);
         this.date = LocalDate.of(year, month, day);
-        
+    }
+
+    public int getYearWeek() {
+        int year = calendar.get(Calendar.YEAR);
+        int week = calendar.get(Calendar.WEEK_OF_YEAR);
+        return year * 100 + week;
+    }
+
+    public int getYearWeekNow() {
+        return this.yearWeekNow;
+    }
+
+    public boolean isFuture() {
+        return this.yearWeekNow < this.getYearWeek();
     }
 }

@@ -72,7 +72,15 @@ public class ViikkokalenteriUi extends Application {
     public void setWeekScene() {
         this.layout.getChildren().clear();
         
-        Image picturefile = new Image("file:src/main/java/images/Veeti.jpg", 800, 600, false, false);
+        StringBuilder imgfile = new StringBuilder("file:src/main/java/images/");
+        if (this.timeService.isFuture() || this.timeService.getYearWeek() < 202045) {
+            imgfile.append(Integer.toString(this.timeService.getYearWeekNow()));
+        } else {
+            imgfile.append(Integer.toString(this.timeService.getYearWeek()));
+        }
+        imgfile.append(".jpg");
+
+        Image picturefile = new Image(imgfile.toString(), 800, 600, false, false);
         ImageView picture = new ImageView(picturefile);
         Pane pictureframe = new Pane();
         pictureframe.getChildren().add(picture);
