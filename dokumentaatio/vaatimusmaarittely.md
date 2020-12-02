@@ -16,15 +16,15 @@ Sovelluksessa on yksi näkymä, joka aukeaa sovelluksen käynnistyessä. Sovellu
 
 ## Perusversion toiminnallisuus
 
-* Sovelluksessa näkyy kuva
-  * Kuva vaihtuu joka viikko
+* Sovelluksessa näkyy kuva -**TEHTY**-
+  * Kuva vaihtuu joka viikko -**TEHTY**-
   * Kuva liittyy vuodenaikaan
-  * Kuvissa on söpöjä eläimiä
-* Käyttäjä näkee viikon numeron, viikonpäivät maanantaista sunnuntaihin ja päivämäärät **TEHTY**
-* Käyttäjä voi selata kalenteria eteen- ja taaksepäin **TEHTY**
-* Käyttäjä voi lisätä kalenteriin merkintöjä **ALUSTAVA**
+  * Kuvissa on söpöjä eläimiä -**SUBJEKTIIVISTA**-
+* Käyttäjä näkee viikon numeron, viikonpäivät maanantaista sunnuntaihin ja päivämäärät -*tehty*-
+* Käyttäjä voi selata kalenteria eteen- ja taaksepäin -*tehty*-
+* Käyttäjä voi lisätä kalenteriin merkintöjä -*alustava*-
   * Merkinnällä on päivä, teksti ja mahdollisesti ajankohta
-* Käyttäjä näkee jokaisen päivän kohdalla sille päivälle kuuluvat merkinnät **ALUSTAVA**
+* Käyttäjä näkee jokaisen päivän kohdalla sille päivälle kuuluvat merkinnät -*alustava*-
   * Kalenterissa on valmiina tärkeimmät kansalliset ja kansainväliset juhlapäivät
   * Koko päivää koskevat merkinnät ovat ylimpänä
   * Ajastetut merkinnät ovat kronologisessa järjestyksessä alkuajan mukaan
