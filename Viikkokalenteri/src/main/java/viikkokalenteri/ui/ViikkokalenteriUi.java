@@ -75,34 +75,19 @@ public class ViikkokalenteriUi extends Application {
     public void setWeekScene() {
         this.layout.getChildren().clear();
         
-        StringBuilder imgfile = new StringBuilder("file:src/main/java/resources/img/");
-        StringBuilder imgshort = new StringBuilder("/img/");
+        StringBuilder imgfile = new StringBuilder("/");
         if (this.timeService.isFuture() || this.timeService.getYearWeek() < 202045) {
             imgfile.append(Integer.toString(this.timeService.getYearWeekNow()));
-            imgshort.append(Integer.toString(this.timeService.getYearWeekNow()));
         } else {
             imgfile.append(Integer.toString(this.timeService.getYearWeek()));
-            imgshort.append(Integer.toString(this.timeService.getYearWeek()));
         }
         imgfile.append(".jpg");
-        imgshort.append(".jpg");
-//        System.out.println(imgfile.toString());
-//        System.out.println(imgshort.toString());
         
-//        URL imgurl = this.getClass().getResource("202050.jpg");
-//        File imgdir = new File(imgurl.getFile());
-        
-//        InputStream imgInputStream = this.getClass().getResourceAsStream(imgshort.toString());
-//        Image picturefile = new Image(imgInputStream);
-
-        
-        
-//           Netbeans-ajo
-        Image picturefile = new Image(imgfile.toString());
-        
-        ImageView picture = new ImageView(picturefile);
+        InputStream imgInputStream = this.getClass().getResourceAsStream(imgfile.toString());
+        Image calendarPicture = new Image(imgInputStream);
+        ImageView pictureIV = new ImageView(calendarPicture);
         Pane pictureframe = new Pane();
-        pictureframe.getChildren().add(picture);
+        pictureframe.getChildren().add(pictureIV);
 
         HBox weekPicker = new HBox(6);
         weekPicker.setPrefWidth(200);
