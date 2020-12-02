@@ -2,6 +2,7 @@ package viikkokalenteri.domain;
 
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import static org.hamcrest.Matchers.*;
@@ -17,13 +18,13 @@ public class TimeServiceTest {
     public void setUp() {
         this.service = new TimeService();
     }
-    
+
     @Test
     public void getWeekGivesPossibleWeekWhenCalendarCreated() {
         int week = this.service.getWeek();
         assertThat(week, is(both(greaterThan(0)).and(lessThan(54))));
     }
-    
+
     @Test
     public void nextWeekAddsOneToWeekNumberWhenMiddleOfYear() {
         this.service.setDate(2020, 8, 8);
@@ -32,15 +33,15 @@ public class TimeServiceTest {
         int after = this.service.getWeek();
         assertEquals(before + 1, after);
     }
-    
+
     @Test
     public void nextWeekPutsWeekNumberToOneWhenDec28() {
-        this.service.setDate(2028, 11, 28);
+        this.service.setDate(2028, 12, 28);
         this.service.nextWeek();
         int week = this.service.getWeek();
         assertEquals(1, week);
     }
-    
+
     @Test
     public void lastWeekDeductsOneFromWeekNumberWhenMiddleOfYear() {
         this.service.setDate(1983, 8, 8);
@@ -49,22 +50,15 @@ public class TimeServiceTest {
         int after = this.service.getWeek();
         assertEquals(before - 1, after);
     }
-    
+
     @Test
     public void lastWeekPutsWeekNumberTo52or53WhenJan4() {
-        this.service.setDate(1965, 0, 4);
+        this.service.setDate(1965, 1, 4);
         this.service.lastWeek();
         int week = this.service.getWeek();
         assertThat(week, greaterThan(51));
     }
-    
-//    @Test
-//    public void timeIsNowWhenCreated() {
-//        Long now = System.currentTimeMillis();
-//        Calendar calendar = this.service.getCalendar();
-//        assertThat(calendar.getTimeInMillis(), is(both(greaterThan(now - 10000)).and(lessThan(now + 1))));
-//    }
-    
+
     @Test
     public void dateIsTodayWhenCreated() {
         Date expectedDate = new Date();
@@ -75,11 +69,41 @@ public class TimeServiceTest {
         String actualString = format.format(actualDate);
         assertThat(actualString, is(equalTo(expectedString)));
     }
-    
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
+    @Test
+    public void setDateSetsCorrectDate() {
+        int year = 2025;
+        int month = 6;
+        int day = 17;
+        LocalDate date = LocalDate.of(year, month, day);
+        this.service.setDate(year, month, day);
+        assertThat(service.getDate(), is(date));
+    }
+
+    @Test
+    public void nextWeekIsFuture() {
+        this.service.nextWeek();
+        assertTrue(this.service.isFuture());
+    }
+
+    @Test
+    public void nowIsNotFuture() {
+        assertFalse(this.service.isFuture());
+    }
+
+    @Test
+    public void nextWeekIncreasesYearWeek() {
+        int now = this.service.getYearWeek();
+        this.service.nextWeek();
+        int after = this.service.getYearWeek();
+        assertTrue(now < after);
+    }
+
+    @Test
+    public void nextWeekDoesntIncreaseYearWeekNow() {
+        int now = this.service.getYearWeekNow();
+        this.service.nextWeek();
+        int after = this.service.getYearWeekNow();
+        assertThat(after, is(now));
+    }
 }

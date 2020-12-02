@@ -17,9 +17,18 @@ import viikkokalenteri.dao.EventDao;
 public class FakeEventDao implements EventDao {
     private HashMap<String, List<Event>> events;
 
+    public FakeEventDao() {
+        events = new HashMap<>();
+    }
+
     @Override
     public Event create(Event event) throws Exception {
-        events.getOrDefault(event.getDate(), new ArrayList<>()).add(event);
+        String date = event.getDate();
+        List<Event> daysEvents = events.getOrDefault(date, new ArrayList<>());
+        if (!daysEvents.contains(event)) {
+            daysEvents.add(event);
+        }
+        events.put(event.getDate(), daysEvents);
         return event;
     }
 
@@ -30,7 +39,7 @@ public class FakeEventDao implements EventDao {
 
     @Override
     public List<Event> findEventsForDate(String date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return events.getOrDefault(date, new ArrayList<>());
     }
     
 }

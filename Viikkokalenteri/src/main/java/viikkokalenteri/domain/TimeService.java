@@ -37,7 +37,7 @@ public class TimeService {
     }
     
     public void setDate(int year, int month, int day) {
-        this.calendar.set(year, month, day);
+        this.calendar.set(year, month - 1, day);
         this.setLocalDate();
     }
     
