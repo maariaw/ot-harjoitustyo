@@ -5,10 +5,8 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Class representing a user created event in the calendar
+ * Class representing a user created event in the calendar.
  */
-
-
 public class Event {
     private String date;
     private String description;

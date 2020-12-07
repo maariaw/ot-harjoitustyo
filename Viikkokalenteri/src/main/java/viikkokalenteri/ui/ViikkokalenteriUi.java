@@ -1,10 +1,8 @@
 
 package viikkokalenteri.ui;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -12,7 +10,6 @@ import java.util.Properties;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -21,7 +18,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
@@ -39,6 +35,9 @@ import viikkokalenteri.domain.Event;
 import viikkokalenteri.domain.EventService;
 import viikkokalenteri.domain.TimeService;
 
+/**
+ * Class for creating the graphic user interface of the application.
+ */
 public class ViikkokalenteriUi extends Application {
     
     private TimeService timeService;
@@ -46,6 +45,9 @@ public class ViikkokalenteriUi extends Application {
     private DateTimeFormatter formatter;
     private VBox layout; // Container for the whole view
     
+    /**
+     * Initializes the local variables.
+     */
     @Override
     public void init() throws Exception {
         Properties properties = new Properties();
@@ -60,7 +62,11 @@ public class ViikkokalenteriUi extends Application {
         this.formatter = DateTimeFormatter.ofPattern("d'.'M'.'");
         this.layout = new VBox(8);
     }
-
+    
+    /**
+     * Opens the application to the main view.
+     * @param   calendar    The Stage of main view
+     */
     @Override
     public void start(Stage calendar) {
         calendar.setTitle("Viikkokalenteri");
@@ -72,6 +78,9 @@ public class ViikkokalenteriUi extends Application {
         calendar.show();
     }
     
+    /**
+     * Constructs and updates the main view of the calendar.
+     */
     public void setWeekScene() {
         this.layout.getChildren().clear();
         
@@ -134,6 +143,10 @@ public class ViikkokalenteriUi extends Application {
         
     }
     
+    /**
+     * Builds the day grid of the calendar.
+     * @return  the container for the day view
+     */
     public GridPane createDayView() {
         GridPane days = new GridPane();
         
@@ -147,6 +160,11 @@ public class ViikkokalenteriUi extends Application {
         return days;
     }
     
+    /**
+     * Constructs a single day panel.
+     * @param   dayOfWeekIndex  Index of the weekday to be created (0 = Monday)
+     * @return  the container for a day view
+     */
     public VBox createADay(int dayOfWeekIndex) {
         String[] titlesOfDays = {"Ma", "Ti", "Ke", 
             "To", "Pe", "La", "Su"};
@@ -175,6 +193,9 @@ public class ViikkokalenteriUi extends Application {
         return day;
     }
     
+    /**
+     * Opens a new window for the event creation.
+     */
     private void makeNewEventWindow() {
         Label dateText = new Label("Päivä:");
         

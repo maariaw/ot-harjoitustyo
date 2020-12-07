@@ -10,8 +10,7 @@ import java.util.Scanner;
 import viikkokalenteri.domain.Event;
 
 /**
- *
- * @author mawahlst
+ * Implementation of the EventDao interface, that allows persistent storage of events in a file.
  */
 public class FileEventDao implements EventDao {
     private String file;
@@ -35,6 +34,9 @@ public class FileEventDao implements EventDao {
         }
     }
     
+    /**
+     * Writes the contents of the events map to the file.
+     */
     private void save() throws Exception {
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (String date : events.keySet()) {
@@ -45,6 +47,17 @@ public class FileEventDao implements EventDao {
         } 
     }
     
+    /**
+     * Finds a list of events from the events map by using the
+     * event's date as keyword, then adds this event to the list and saves
+     * the updated map to file.
+     * 
+     * @param   event   Event to be added to the dao
+     * 
+     * @see     #save() 
+     * 
+     * @return  the added event
+     */
     @Override
     public Event create(Event event) throws Exception {
         String date = event.getDate();
@@ -57,11 +70,23 @@ public class FileEventDao implements EventDao {
         return event;
     }
     
+    /**
+     * Returns the list of events corresponding to the given date.
+     * 
+     * @param   date    Date of interest
+     * 
+     * @return  list of dates scheduled for the date
+     */
     @Override
     public List<Event> findEventsForDate(String date) {
         return events.getOrDefault(date, new ArrayList<>());
     }
     
+    /**
+     * Returns all the saved events as a HashMap.
+     * 
+     * @return  a HashMap of lists of events by date.
+     */
     @Override
     public HashMap<String, List<Event>> getAll() {
         return events;

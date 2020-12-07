@@ -7,15 +7,32 @@ import java.util.List;
 import viikkokalenteri.domain.Event;
 
 /**
- *
- * @author mawahlst
+ * Interface for classes that provide event storage.
  */
 public interface EventDao {
     
+    /**
+     * Stores a new event.
+     * 
+     * @param   event   Event to be stored
+     * 
+     * @return  the given event
+     */
     Event create(Event event) throws Exception;
     
+    /**
+     * Retrieves all events stored by the EventDao.
+     * 
+     * @return a map with dates as keys and lists of the date's events as values
+     */
     HashMap<String, List<Event>> getAll();
     
+    /**
+     * Retrieves the events that are scheduled for the given date.
+     * 
+     * @param   date    Date of interest
+     * @return  list of events that have the specified date
+     */
     List<Event> findEventsForDate(String date);
     
 }
