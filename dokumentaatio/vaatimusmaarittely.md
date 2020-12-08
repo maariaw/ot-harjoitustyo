@@ -24,7 +24,7 @@ Sovelluksessa on yksi näkymä, joka aukeaa sovelluksen käynnistyessä. Sovellu
 * Käyttäjä voi selata kalenteria eteen- ja taaksepäin -*tehty*-
 * Käyttäjä voi lisätä kalenteriin merkintöjä -*tehty osittain*-
   * Merkinnällä on päivä, teksti ja mahdollisesti ajankohta
-* Käyttäjä voi poistaa tekemiään merkintöjä -**TEHTY**-
+* Käyttäjä voi poistaa tekemiään merkintöjä -**TEHTY TÄLLÄ VIIKOLLA**-
 * Käyttäjä näkee jokaisen päivän kohdalla sille päivälle kuuluvat merkinnät -*tehty osittain*-
   * Kalenterissa on valmiina tärkeimmät kansalliset ja kansainväliset juhlapäivät
   * Koko päivää koskevat merkinnät ovat ylimpänä
