@@ -5,6 +5,8 @@ Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistotekniikan kur
 
 ## Dokumentaatio
 
+[Käyttöohje](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/kayttoohje.md)
+
 [Vaatimusmäärittely](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
 
 [Arkkitehtuurikuvaus](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
