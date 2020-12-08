@@ -35,4 +35,11 @@ public interface EventDao {
      */
     List<Event> findEventsForDate(String date);
     
+    /**
+     * Removes the given event from the EventDao.
+     *
+     * @param   event   Event to be removed
+     * @return  removed event
+     */
+    Event remove(Event event) throws Exception;
 }

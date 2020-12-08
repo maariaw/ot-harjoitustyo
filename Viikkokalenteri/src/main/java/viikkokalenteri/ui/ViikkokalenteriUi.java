@@ -13,10 +13,13 @@ import java.util.Properties;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -195,6 +198,25 @@ public class ViikkokalenteriUi extends Application {
             Label eventdesc = new Label(event.getDescription());
             eventdesc.setWrapText(true);
             eventdesc.setLineSpacing(-2);
+            eventdesc.setOnMouseEntered((mouseOn) -> {
+                eventdesc.setTextFill(Color.BLUE);
+            });
+            eventdesc.setOnMouseExited((mouseOff) -> {
+                eventdesc.setTextFill(Color.BLACK);
+            });
+
+            ContextMenu menu = new ContextMenu();
+            MenuItem delete = new MenuItem("Poista");
+            menu.getItems().add(delete);
+            delete.setOnAction((choice) -> {
+                eventService.removeEvent(event);
+                setWeekScene();
+            });
+
+            eventdesc.setContextMenu(menu);
+            eventdesc.setOnMouseClicked((click) -> {
+                menu.show(eventdesc,Side.BOTTOM, 0, 0);
+            });
             events.getChildren().add(eventdesc);
         }
         day.getChildren().add(events);

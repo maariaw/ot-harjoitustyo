@@ -3,6 +3,8 @@ package viikkokalenteri.domain;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import viikkokalenteri.dao.EventDao;
 
 /**
@@ -44,6 +46,15 @@ public class EventService {
             return false;
         }
         
+        return true;
+    }
+
+    public boolean removeEvent(Event event) {
+        try {
+            eventDao.remove(event);
+        } catch (Exception ex) {
+            return false;
+        }
         return true;
     }
 }

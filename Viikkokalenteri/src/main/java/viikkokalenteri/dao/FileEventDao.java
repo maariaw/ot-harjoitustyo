@@ -91,4 +91,19 @@ public class FileEventDao implements EventDao {
     public HashMap<String, List<Event>> getAll() {
         return events;
     }
+
+    /**
+     * Removes the given event from the event map and saves the updated map
+     * to file.
+     *
+     * @param   event   The event to be removed
+     * @return  the removed event
+     * @throws Exception
+     */
+    @Override
+    public Event remove(Event event) throws Exception {
+        events.get(event.getDate()).remove(event);
+        save();
+        return event;
+    }
 }
