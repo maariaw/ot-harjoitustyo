@@ -25,9 +25,10 @@ TimeService pitää kirjaa kalenterin kulloisestakin tilasta aikajanalla ja tarj
 * void lastWeek()
 * boolean isFuture()
 
-EventService toimii välittäjänä käyttöjärjestelmän ja pysyväistallennuksen välissä. Se tarjoaa metodit käyttöliittymän tapahtumiin liittyville toiminnoille, eli uuden tapahtuman luomiselle käyttäjän pyynnöstä ja tietyn päivän tapahtumien listaamiselle kalenterinäkymää varten:
+EventService toimii välittäjänä käyttöjärjestelmän ja pysyväistallennuksen välissä. Se tarjoaa metodit käyttöliittymän tapahtumiin liittyville toiminnoille, eli uuden tapahtuman luomiselle tai vanhan poistamiselle käyttäjän pyynnöstä ja tietyn päivän tapahtumien listaamiselle kalenterinäkymää varten:
 
 * boolean createEvent(LocalDate date, String description)
+* boolean removeEvent(Event event)
 * List<Event> getEventsForDay(LocalDate date)
   
 Tapahtumat luodaan ja välitetään olioina luokasta Event.
