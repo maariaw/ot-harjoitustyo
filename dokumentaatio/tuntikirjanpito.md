@@ -10,4 +10,6 @@ Päivä | Tunnit | Tehtävät
 1.12. | 2 | Sekvenssikaavio tapahtuman luomisesta ja kuva näkymään sovelluksessa
 2.12. | 8 | Pari testiä, graafisen käyttöliittymän hiomista, kuvien vaihtologiikka kuntoon, mutta en saanut kuvia toimimaan jar-tiedostosta
 3.12. | 1 | Sain kuvat toimimaan myös jar:na
-**_yht._** | 38 |  
+7.12. | 3,5 | JavaDocin luominen kaikelle oleelliselle
+8.12. | 6 | Arkkitehtuurikuvauksen laajentamista, yritin saada Koodikatselmus-issuen osoittaman toiminnan korjattua (en vielä onnistunut ja luovutin jotta saan toiminnallisuutta tehtyä), lisäsin mahdollisuuden poistaa tapahtuman, lisäsin config.properties-tiedoston luomisen tarvittaessa
+**_yht._** | 47,5 |  
