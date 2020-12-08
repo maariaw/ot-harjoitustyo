@@ -14,4 +14,8 @@ Kalenteri avautuu kuluvan viikon kohdalta. Kuvan alla näkyy viikon numero. Sen 
 
 ## Uuden tapahtuman luominen
 
-Kuvan alla vasemmalla on nappi "Uusi tapahtuma". Kun sitä painaa, avautuu uusi ikkuna uuden tapahtumamerkinnän kirjaamista varten. Valitse tapahtuman päivämäärä klikkaamalla päivämääräkentän oikeassa laidassa olevaa kalenteri-ikonia ja valitsemalla avautuvassa kalenterivalikosta klikkaamalla haluttu päivä. Valikon yläreunassa on vasemmalla nuolinapit kuukausien välillä navigointiin ja oikeassa laidassa vuosien välillä navigointiin. Tapahtuman kuvaus kirjoitetaan "Uusi tapahtuma"-ikkunan alempaan kenttään. Painamalla "Vie kalenteriin"-nappia tapahtuma tallentuu kalenteriin. Voit lisätä sitten seuraavan tapahtuman, tai sulkea ikkunan.
+Kuvan alla vasemmalla on nappi "Uusi tapahtuma". Kun sitä painaa, avautuu uusi ikkuna uuden tapahtumamerkinnän kirjaamista varten.
+
+![Uusi tapahtuma -ikkuna](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/k-1.png)
+
+Valitse tapahtuman päivämäärä klikkaamalla päivämääräkentän oikeassa laidassa olevaa kalenteri-ikonia ja valitsemalla avautuvassa kalenterivalikosta klikkaamalla haluttu päivä. Valikon yläreunassa on vasemmalla nuolinapit kuukausien välillä navigointiin ja oikeassa laidassa vuosien välillä navigointiin. Tapahtuman kuvaus kirjoitetaan "Uusi tapahtuma"-ikkunan alempaan kenttään (kuvassa korostettuna). Painamalla "Vie kalenteriin"-nappia tapahtuma tallentuu kalenteriin. Voit lisätä sitten seuraavan tapahtuman, tai sulkea ikkunan.
