@@ -16,15 +16,16 @@ Sovelluksessa on yksi näkymä, joka aukeaa sovelluksen käynnistyessä. Sovellu
 
 ## Perusversion toiminnallisuus
 
-* Sovelluksessa näkyy kuva -**TEHTY**-
-  * Kuva vaihtuu joka viikko -**TEHTY**-
+* Sovelluksessa näkyy kuva -*tehty*-
+  * Kuva vaihtuu joka viikko -*tehty*-
   * Kuva liittyy vuodenaikaan
-  * Kuvissa on söpöjä eläimiä -**SUBJEKTIIVISTA**-
+  * Kuvissa on söpöjä eläimiä -*tehty*-
 * Käyttäjä näkee viikon numeron, viikonpäivät maanantaista sunnuntaihin ja päivämäärät -*tehty*-
 * Käyttäjä voi selata kalenteria eteen- ja taaksepäin -*tehty*-
-* Käyttäjä voi lisätä kalenteriin merkintöjä -*alustava*-
+* Käyttäjä voi lisätä kalenteriin merkintöjä -*tehty osittain*-
   * Merkinnällä on päivä, teksti ja mahdollisesti ajankohta
-* Käyttäjä näkee jokaisen päivän kohdalla sille päivälle kuuluvat merkinnät -*alustava*-
+* Käyttäjä voi poistaa tekemiään merkintöjä -**TEHTY**-
+* Käyttäjä näkee jokaisen päivän kohdalla sille päivälle kuuluvat merkinnät -*tehty osittain*-
   * Kalenterissa on valmiina tärkeimmät kansalliset ja kansainväliset juhlapäivät
   * Koko päivää koskevat merkinnät ovat ylimpänä
   * Ajastetut merkinnät ovat kronologisessa järjestyksessä alkuajan mukaan
@@ -36,7 +37,7 @@ Sovelluksessa on yksi näkymä, joka aukeaa sovelluksen käynnistyessä. Sovellu
 * Ylläpitäjä voi muokata kuvavalikoimaa valitsemalla omista tiedostoistaan näytettäviä kuvia
 * Ylläpitäjä voi muokata kaikkia kalenterimerkintöjä
 * Kuvia on joka viikolle 2-3, joista käyttäjä voi valita mieluisimman
-* Kuvien selaaminen taaksepäin, mutta ei eteenpäin (mahdollisesti voi kiinnittää vanhemman kuvan näkymään)
+* Kuvien selaaminen taaksepäin, mutta ei eteenpäin (mahdollisesti voi kiinnittää vanhemman kuvan näkymään) -*tehty osa*-
 * Muistutukset tulevan viikon tapahtumista
   * Käyttäjä voi valita, mistä tapahtumista haluaa muistutuksen edellisellä viikolla
 * Tapahtumien poistaminen bulkissa (esim. menneet)
