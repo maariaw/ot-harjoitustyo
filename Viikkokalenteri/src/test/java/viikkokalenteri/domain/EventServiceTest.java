@@ -51,4 +51,27 @@ public class EventServiceTest {
         assertThat(events.size(), is(1));
     }
     
+    @Test
+    public void removeEventRemovesAnEvent() {
+        LocalDate paiva = LocalDate.of(2024, 2, 14);
+        String kuvaus = "Ystävänpäivä";
+        this.service.createEvent(paiva, kuvaus);
+        Event event = new Event(paiva.toString(), kuvaus);
+        this.service.removeEvent(event);
+        List<Event> events = this.service.getEventsForDay(paiva);
+        assertThat(events, is(empty()));
+    }
+    
+     @Test
+    public void removeEventRemovesOnlyOneEvent() {
+        LocalDate paiva = LocalDate.of(2024, 2, 14);
+        String kuvaus1 = "Ystävänpäivä";
+        String kuvaus2 = "Syntymäpäivä";
+        this.service.createEvent(paiva, kuvaus1);
+        this.service.createEvent(paiva, kuvaus2);
+        Event event = new Event(paiva.toString(), kuvaus1);
+        this.service.removeEvent(event);
+        List<Event> events = this.service.getEventsForDay(paiva);
+        assertThat(events.size(), is(1));
+    }
 }

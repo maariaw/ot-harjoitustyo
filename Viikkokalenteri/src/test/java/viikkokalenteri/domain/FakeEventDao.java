@@ -41,5 +41,11 @@ public class FakeEventDao implements EventDao {
     public List<Event> findEventsForDate(String date) {
         return events.getOrDefault(date, new ArrayList<>());
     }
+
+    @Override
+    public Event remove(Event event) throws Exception {
+        events.get(event.getDate()).remove(event);
+        return event;
+    }
     
 }
