@@ -13,39 +13,56 @@ Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistotekniikan kur
 
 [Työaikakirjanpito](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
 
-[Release](https://github.com/maariaw/ot-harjoitustyo/releases/tag/v1.0-viikko5)
+## Releaset
+
+[Viikko 5](https://github.com/maariaw/ot-harjoitustyo/releases/tag/v1.0-viikko5)
 
 ## Komentorivitoiminnot
 ### Suorittaminen
 Ohjelman voi suorittaa komennolla
 
-> mvn compile exec:java -Dexec.mainClass=viikkokalenteri.Main
+```
+mvn compile exec:java -Dexec.mainClass=viikkokalenteri.Main
+```
 
 ### Testaus
 Testit suoritetaan komennolla
 
-> mvn test
+```
+mvn test
+```
 
 Testikattavuusraportti luodaan komennolla
 
-> mvn jacoco:report
+```
+mvn jacoco:report
+```
 
-Kattavuusraporttia voi tarkastella avaamalla selaimella tiedoston target/site/jacoco/index.html
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedoston *target/site/jacoco/index.html*
 
 ### Suoritettavan jarin generointi
 Komento
 
->mvn package
+```
+mvn package
+```
 
 generoi hakemistoon target suoritettavan jar-tiedoston Viikkokalenteri-1.0-SNAPSHOT.jar
 
-Tiedoston suorittamiseksi kansiossa täytyy olla myös tiedosto config.properties, joka sisältää vain tämän rivin:
+### JavaDoc
+JavaDoc generoidaan komennolla
 
-> eventFile=events.txt
+```
+mvn javadoc:javadoc
+```
+
+JavaDocia voi tarkastella avaamalla selaimella tiedosto *target/site/apidocs/index.html*
 
 ### Checkstyle
 Tiedoston [checkstyle](https://github.com/maariaw/ot-harjoitustyo/blob/main/Viikkokalenteri/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla
 
-> mvn jxr:jxr checkstyle:checkstyle
+```
+mvn jxr:jxr checkstyle:checkstyle
+```
 
-Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto target/site/checkstyle.html
+Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto *target/site/checkstyle.html*
