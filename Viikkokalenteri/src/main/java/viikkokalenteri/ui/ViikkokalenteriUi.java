@@ -9,13 +9,17 @@ import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Properties;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -209,8 +213,15 @@ public class ViikkokalenteriUi extends Application {
             MenuItem delete = new MenuItem("Poista");
             menu.getItems().add(delete);
             delete.setOnAction((choice) -> {
-                eventService.removeEvent(event);
-                setWeekScene();
+                Alert alert = new Alert(AlertType.CONFIRMATION);
+                alert.setTitle("Tapahtuman poisto");
+                alert.setHeaderText("Haluatko varmasti poistaa tapahtuman?");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK){
+                    eventService.removeEvent(event);
+                    setWeekScene();
+                }
             });
 
             eventdesc.setContextMenu(menu);
