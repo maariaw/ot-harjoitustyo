@@ -17,6 +17,8 @@ Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistotekniikan kur
 
 [Viikko 5](https://github.com/maariaw/ot-harjoitustyo/releases/tag/v1.0-viikko5)
 
+[Viikko 6](https://github.com/maariaw/ot-harjoitustyo/releases/tag/v1.1-viikko6)
+
 ## Komentorivitoiminnot
 ### Suorittaminen
 Ohjelman voi suorittaa komennolla
