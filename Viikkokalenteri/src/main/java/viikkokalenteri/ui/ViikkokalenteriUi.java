@@ -1,7 +1,10 @@
 
 package viikkokalenteri.ui;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -51,8 +54,16 @@ public class ViikkokalenteriUi extends Application {
     @Override
     public void init() throws Exception {
         Properties properties = new Properties();
+        String propFile = "config.properties";
 
-        properties.load(new FileInputStream("config.properties"));
+        try {
+            properties.load(new FileInputStream(propFile));
+        } catch (IOException e) {
+            FileWriter writer = new FileWriter(new File(propFile));
+            writer.write("eventFile=events.txt");
+            writer.close();
+            properties.load(new FileInputStream(propFile));
+        }
         
         String eventFile = properties.getProperty("eventFile");
             
