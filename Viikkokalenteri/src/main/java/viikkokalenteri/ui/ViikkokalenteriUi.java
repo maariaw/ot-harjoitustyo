@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Properties;
@@ -15,6 +16,7 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -152,7 +154,7 @@ public class ViikkokalenteriUi extends Application {
         days.setPadding(new Insets(0, 5, 5, 5));
         
         createEvent.setOnAction((event) -> {
-            this.makeNewEventWindow();
+            this.makeNewEventWindow(this.timeService.getDate(), "");
         });
         
         layout.getChildren().add(pictureframe);
@@ -223,6 +225,15 @@ public class ViikkokalenteriUi extends Application {
                     setWeekScene();
                 }
             });
+            MenuItem edit = new MenuItem("Muokkaa");
+            menu.getItems().add(edit);
+            edit.setOnAction((choice) -> {
+                boolean changed = makeNewEventWindow(LocalDate.parse(event.getDate()), event.getDescription());
+                if (changed) {
+                    eventService.removeEvent(event);
+                    setWeekScene();
+                }
+            });
 
             eventdesc.setContextMenu(menu);
             eventdesc.setOnMouseClicked((click) -> {
@@ -236,18 +247,20 @@ public class ViikkokalenteriUi extends Application {
             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         return day;
     }
-    
+
     /**
      * Opens a new window for the event creation.
      */
-    private void makeNewEventWindow() {
+    private boolean makeNewEventWindow(LocalDate initDate, String initDescription) {
+        ArrayList<Integer> eventsCreated = new ArrayList<>();
+
         Label dateText = new Label("Päivä:");
         
-        DatePicker datePicker = new DatePicker(this.timeService.getDate());
+        DatePicker datePicker = new DatePicker(initDate);
         
         Label descText = new Label("Tapahtuma:");
         
-        TextField description = new TextField();
+        TextField description = new TextField(initDescription);
         
         Button createButton = new Button("Vie kalenteriin");
         createButton.setOnAction((event) -> {
@@ -256,8 +269,11 @@ public class ViikkokalenteriUi extends Application {
             if (date != null && !text.isBlank()) {
                 this.eventService.createEvent(datePicker.getValue(),
                     description.getText());
-            description.setText("");
-            this.setWeekScene();
+                eventsCreated.add(1);
+                this.setWeekScene();
+                Node source = (Node) event.getSource();
+                Stage stage = (Stage) source.getScene().getWindow();
+                stage.close();
             }
         });
         
@@ -269,14 +285,13 @@ public class ViikkokalenteriUi extends Application {
         Stage newEventWindow = new Stage();
         newEventWindow.setTitle("Uusi tapahtuma");
         newEventWindow.setScene(newEventScene);
-        newEventWindow.show();
-        
+        newEventWindow.showAndWait();
+        return !eventsCreated.isEmpty();
     }
-    
+
     public static void main(String[] args) {
         Locale.setDefault(new Locale("fi", "FI"));
         launch(args);
     }
-    
 }
 

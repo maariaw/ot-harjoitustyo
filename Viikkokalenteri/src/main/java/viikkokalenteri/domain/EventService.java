@@ -51,7 +51,7 @@ public class EventService {
 
     /**
      * Removes the given event object from the eventDao.
-     * 
+     *
      * @param   event The event that is to be removed
      * @return  true if the eventDao was accessed successfully
      */

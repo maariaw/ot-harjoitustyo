@@ -50,7 +50,7 @@ public class EventServiceTest {
         List<Event> events = this.service.getEventsForDay(paiva);
         assertThat(events.size(), is(1));
     }
-    
+
     @Test
     public void removeEventRemovesAnEvent() {
         LocalDate paiva = LocalDate.of(2024, 2, 14);
@@ -61,7 +61,7 @@ public class EventServiceTest {
         List<Event> events = this.service.getEventsForDay(paiva);
         assertThat(events, is(empty()));
     }
-    
+
      @Test
     public void removeEventRemovesOnlyOneEvent() {
         LocalDate paiva = LocalDate.of(2024, 2, 14);
