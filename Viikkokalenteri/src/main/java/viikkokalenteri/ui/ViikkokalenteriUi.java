@@ -13,7 +13,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Properties;
 import javafx.application.Application;
-import javafx.beans.property.StringProperty;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -41,7 +42,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -162,7 +162,9 @@ public class ViikkokalenteriUi extends Application {
         days.setPadding(new Insets(0, 5, 5, 5));
         
         createEvent.setOnAction((event) -> {
-            this.makeNewEventWindow(this.timeService.getDate(), "");
+            this.makeNewEventWindow(
+                    this.timeService.getDate(), "", false, "00:00"
+            );
         });
         
         layout.getChildren().add(pictureframe);
@@ -242,7 +244,8 @@ public class ViikkokalenteriUi extends Application {
             edit.setOnAction((choice) -> {
                 boolean changed = makeNewEventWindow(
                         LocalDate.parse(event.getDate()),
-                        event.getDescription());
+                        event.getDescription(),
+                        event.isTimed(), event.getTime());
                 if (changed) {
                     eventService.removeEvent(event);
                     setWeekScene();
@@ -266,7 +269,7 @@ public class ViikkokalenteriUi extends Application {
      * Opens a new window for the event creation.
      */
     private boolean makeNewEventWindow(LocalDate initDate,
-            String initDescription) {
+            String initDescription, boolean timed, String initTime) {
         ArrayList<Integer> eventsCreated = new ArrayList<>();
 
         Label dateText = new Label("Päivä:");
@@ -276,12 +279,13 @@ public class ViikkokalenteriUi extends Application {
 
         CheckBox timeToggle = new CheckBox("Aseta aika");
         timeToggle.setAllowIndeterminate(false);
+        timeToggle.setSelected(timed);
 
         ComboBox timePicker = new ComboBox(timeService.timeOptions());
-        timePicker.setValue("00:00");
+        timePicker.setValue(initTime);
         timePicker.visibleProperty().bind(timeToggle.selectedProperty());
         timePicker.managedProperty().bind(timeToggle.selectedProperty());
-        timePicker.setEditable(false);
+        timePicker.setEditable(true);
         timePicker.getEditor().setTextFormatter(new TextFormatter<>(change ->
                 (change.getControlNewText()
                         .matches(timeService.timeInputRegex())
@@ -290,15 +294,21 @@ public class ViikkokalenteriUi extends Application {
         timePicker.getEditor().focusedProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (!newValue) {
-                        System.out.println("Tarkistetaan arvo");
                         String timeInput = (String) timePicker.getValue();
-                        
-                        
-                        
-                        // Muuta tässä input vastaamaan validia aikaa!!
-                        
-                        
-                        
+                        int inputSize = timeInput.length();
+                        StringBuilder timeFix = new StringBuilder();
+                        if (inputSize > 2) {
+                            if (inputSize > 3) {
+                                timeFix.append(timeInput.subSequence(0, 2));
+                            } else {
+                                timeFix.append("0");
+                                timeFix.append(timeInput.charAt(0));
+                            }
+                            timeFix.append(":");
+                            timeFix.append(timeInput.substring(inputSize - 2));
+                            timeInput = timeFix.toString();
+                            timePicker.setValue(timeInput);
+                        }
                         if (!timeInput.matches(timeService.validTimeRegex())) {
                             timePicker.getEditor().requestFocus();
                         }
@@ -325,6 +335,12 @@ public class ViikkokalenteriUi extends Application {
             }
         });
         
+        BooleanBinding timeValid = Bindings.createBooleanBinding(() -> {
+            return timePicker.getEditor().getText()
+                    .matches(timeService.validTimeRegex());
+        }, timePicker.getEditor().textProperty());
+        createButton.disableProperty().bind(timeValid.not());
+
         VBox newEventContainer = new VBox(10);
         newEventContainer.setPadding(new Insets(10, 10, 15, 10));
         newEventContainer.getChildren().addAll(dateText, datePicker, timeToggle,
