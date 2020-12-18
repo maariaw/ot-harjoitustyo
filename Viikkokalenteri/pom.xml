@@ -42,6 +42,7 @@
                 <configuration>
                     <excludes>
                         <exclude>viikkokalenteri/ui/*</exclude>
+                        <exclude>**/*Main*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
