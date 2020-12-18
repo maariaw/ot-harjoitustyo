@@ -12,6 +12,10 @@ public class Event {
     private final String description;
     private final boolean timed;
     
+    public Event(String date, String description) {
+        this(date, "00:00", description, false);
+    }
+
     public Event(String date, String time, String description, boolean timed) {
         this.date = date;
         this.time = time;
@@ -37,10 +41,11 @@ public class Event {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.date);
-        hash = 71 * hash + Objects.hashCode(this.time);
-        hash = 71 * hash + Objects.hashCode(this.description);
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.date);
+        hash = 89 * hash + Objects.hashCode(this.time);
+        hash = 89 * hash + Objects.hashCode(this.description);
+        hash = 89 * hash + (this.timed ? 1 : 0);
         return hash;
     }
 
@@ -56,6 +61,9 @@ public class Event {
             return false;
         }
         final Event other = (Event) obj;
+        if (this.timed != other.timed) {
+            return false;
+        }
         if (!Objects.equals(this.date, other.date)) {
             return false;
         }
@@ -67,4 +75,5 @@ public class Event {
         }
         return true;
     }
+
 }

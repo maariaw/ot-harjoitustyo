@@ -7,7 +7,6 @@ package viikkokalenteri.dao;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +36,7 @@ public class FileEventDaoTest {
     public void setUp() throws Exception {
         eventFile = testFolder.newFile("testfile_events.txt");
         try (FileWriter file = new FileWriter(eventFile.getAbsolutePath())) {
-            file.write("This-Is-aDate;This Is an Event\n");
+            file.write("This-Is-aDate;ThisIs:aTime;This Is an Event;true\n");
         }
 
         dao = new FileEventDao(eventFile.getAbsolutePath());

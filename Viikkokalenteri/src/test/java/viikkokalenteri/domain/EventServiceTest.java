@@ -6,7 +6,6 @@
 package viikkokalenteri.domain;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;

@@ -30,6 +30,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
@@ -42,6 +43,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -124,10 +126,10 @@ public class ViikkokalenteriUi extends Application {
         Image calendarPicture = new Image(imgInputStream);
         ImageView pictureIV = new ImageView(calendarPicture);
         VBox pictureframe = new VBox();
+        pictureframe.setAlignment(Pos.CENTER);
         pictureframe.getChildren().add(pictureIV);
 
         HBox weekPicker = new HBox(6);
-        weekPicker.setPrefWidth(200);
         weekPicker.setPrefHeight(20);
         weekPicker.setAlignment(Pos.CENTER);
 
@@ -143,20 +145,22 @@ public class ViikkokalenteriUi extends Application {
             this.timeService.nextWeek();
             setWeekScene();
         });
-        weekPicker.getChildren().add(back);
-        weekPicker.getChildren().add(week);
-        weekPicker.getChildren().add(forward);
+        weekPicker.getChildren().addAll(back, week, forward);
 
         Button createEvent = new Button("Uusi tapahtuma");
 
         GridPane middlepanel = new GridPane();
-        middlepanel.add(createEvent, 1, 1);
-        middlepanel.add(weekPicker, 2, 1);
+        middlepanel.add(createEvent, 0, 0);
+        middlepanel.add(weekPicker, 1, 0);
 
-        middlepanel.getColumnConstraints().add(new ColumnConstraints(5));
-        middlepanel.getColumnConstraints().add(new ColumnConstraints(195));
-        middlepanel.getColumnConstraints().add(new ColumnConstraints(400));
-        middlepanel.getColumnConstraints().add(new ColumnConstraints(200));
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setPercentWidth(20);
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setPercentWidth(60);
+        ColumnConstraints column3 = new ColumnConstraints();
+        column1.setPercentWidth(20);
+        middlepanel.getColumnConstraints().addAll(column1, column2, column3);
+        middlepanel.setPadding(new Insets(0, 5, 0, 5));
 
         GridPane days = createDayView();
         days.setPadding(new Insets(0, 5, 5, 5));
@@ -209,6 +213,12 @@ public class ViikkokalenteriUi extends Application {
         title.getChildren().add(daytitle);
         day.getChildren().add(title);
         VBox events = new VBox(3);
+        ScrollPane scroll = new ScrollPane();
+        scroll.setContent(events);
+        scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scroll.setFitToWidth(true);
+        VBox.setVgrow(scroll, Priority.ALWAYS);
+
         events.setPadding(new Insets(3));
         for (Event event : this.eventService.getEventsForDay(date)) {
             Label eventdesc = new Label(event.getDescription());
@@ -258,7 +268,7 @@ public class ViikkokalenteriUi extends Application {
             });
             events.getChildren().add(eventdesc);
         }
-        day.getChildren().add(events);
+        day.getChildren().add(scroll);
         day.setPrefHeight(365);
         day.setBorder(new Border(new BorderStroke(Color.BLACK,
             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));

@@ -36,12 +36,14 @@ public class EventService {
     
     /**
      * Creates an Event object and saves it to the EventDao.
-     * 
+     *
      * @param   date        Date of the event
+     * @param   time        Time of the event
      * @param   description Description of the event
-     * 
+     * @param   timed       True if time was set by user
+     *
      * @see     viikkokalenteri.dao.FileEventDao#create(viikkokalenteri.domain.Event) 
-     * 
+     *
      * @return  true if saving event is successful
      */
     public boolean createEvent(LocalDate date, String time, String description, boolean timed) {
@@ -53,6 +55,22 @@ public class EventService {
         }
         
         return true;
+    }
+    
+    /**
+     * Creates a non-timed Event object and saves it to the EventDao
+     *
+     * For testing purposes.
+     *
+     * @param   date        Date of the event
+     * @param   description Description of the event
+     *
+     * @see     viikkokalenteri.domain.EventService#createEvent(java.time.LocalDate, java.lang.String, java.lang.String, boolean)
+     *
+     * @return  true if saving event is successful
+     */
+    public boolean createEvent(LocalDate date, String description) {
+        return this.createEvent(date, "00:00", description, false);
     }
 
     /**
