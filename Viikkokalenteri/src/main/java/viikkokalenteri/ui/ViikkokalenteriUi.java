@@ -13,6 +13,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Properties;
 import javafx.application.Application;
+import javafx.beans.property.StringProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Side;
@@ -22,11 +23,14 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
@@ -90,6 +94,7 @@ public class ViikkokalenteriUi extends Application {
     @Override
     public void start(Stage calendar) {
         calendar.setTitle("Viikkokalenteri");
+        calendar.setMinWidth(800);
         setWeekScene();
         
         Scene weekview = new Scene(layout, 800, 1000);
@@ -105,17 +110,20 @@ public class ViikkokalenteriUi extends Application {
         this.layout.getChildren().clear();
         
         StringBuilder imgfile = new StringBuilder("/");
-        if (this.timeService.isFuture() || this.timeService.getYearWeek() < 202045) {
+        if (this.timeService.isFuture()
+                || this.timeService.getYearWeek() < 202045) {
+            // No images stored for before week 45, so show the current image
             imgfile.append(Integer.toString(this.timeService.getYearWeekNow()));
         } else {
             imgfile.append(Integer.toString(this.timeService.getYearWeek()));
         }
         imgfile.append(".jpg");
         
-        InputStream imgInputStream = this.getClass().getResourceAsStream(imgfile.toString());
+        InputStream imgInputStream = this.getClass()
+                .getResourceAsStream(imgfile.toString());
         Image calendarPicture = new Image(imgInputStream);
         ImageView pictureIV = new ImageView(calendarPicture);
-        Pane pictureframe = new Pane();
+        VBox pictureframe = new VBox();
         pictureframe.getChildren().add(pictureIV);
 
         HBox weekPicker = new HBox(6);
@@ -176,7 +184,7 @@ public class ViikkokalenteriUi extends Application {
             column.setPercentWidth(20);
             days.getColumnConstraints().add(column);
         }
-        
+
         return days;
     }
     
@@ -186,14 +194,14 @@ public class ViikkokalenteriUi extends Application {
      * @return  the container for a day view
      */
     public VBox createADay(int dayOfWeekIndex) {
-        String[] titlesOfDays = {"Ma", "Ti", "Ke", 
-            "To", "Pe", "La", "Su"};
         LocalDate date = this.timeService.getDateOfWeekDay(dayOfWeekIndex);
         String fDate = date.format(formatter);
         VBox day = new VBox(5);
         VBox title = new VBox();
-        Label daytitle = new Label(titlesOfDays[dayOfWeekIndex]
-                + " " + fDate);
+        Label daytitle = new Label(
+                timeService.dayAbbreviations()[dayOfWeekIndex]
+                + " " + fDate
+        );
         daytitle.setFont(new Font("Arial", 16));
         daytitle.setPadding(new Insets(0,0,0,5));
         title.getChildren().add(daytitle);
@@ -202,6 +210,10 @@ public class ViikkokalenteriUi extends Application {
         events.setPadding(new Insets(3));
         for (Event event : this.eventService.getEventsForDay(date)) {
             Label eventdesc = new Label(event.getDescription());
+            if (event.isTimed()) {
+                eventdesc.setText(event.getTime() + " "
+                        + event.getDescription());
+            }
             eventdesc.setWrapText(true);
             eventdesc.setLineSpacing(-2);
             eventdesc.setOnMouseEntered((mouseOn) -> {
@@ -228,7 +240,9 @@ public class ViikkokalenteriUi extends Application {
             MenuItem edit = new MenuItem("Muokkaa");
             menu.getItems().add(edit);
             edit.setOnAction((choice) -> {
-                boolean changed = makeNewEventWindow(LocalDate.parse(event.getDate()), event.getDescription());
+                boolean changed = makeNewEventWindow(
+                        LocalDate.parse(event.getDate()),
+                        event.getDescription());
                 if (changed) {
                     eventService.removeEvent(event);
                     setWeekScene();
@@ -251,13 +265,46 @@ public class ViikkokalenteriUi extends Application {
     /**
      * Opens a new window for the event creation.
      */
-    private boolean makeNewEventWindow(LocalDate initDate, String initDescription) {
+    private boolean makeNewEventWindow(LocalDate initDate,
+            String initDescription) {
         ArrayList<Integer> eventsCreated = new ArrayList<>();
 
         Label dateText = new Label("Päivä:");
         
         DatePicker datePicker = new DatePicker(initDate);
-        
+        datePicker.setEditable(false);
+
+        CheckBox timeToggle = new CheckBox("Aseta aika");
+        timeToggle.setAllowIndeterminate(false);
+
+        ComboBox timePicker = new ComboBox(timeService.timeOptions());
+        timePicker.setValue("00:00");
+        timePicker.visibleProperty().bind(timeToggle.selectedProperty());
+        timePicker.managedProperty().bind(timeToggle.selectedProperty());
+        timePicker.setEditable(false);
+        timePicker.getEditor().setTextFormatter(new TextFormatter<>(change ->
+                (change.getControlNewText()
+                        .matches(timeService.timeInputRegex())
+                        ) ? change : null));
+
+        timePicker.getEditor().focusedProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (!newValue) {
+                        System.out.println("Tarkistetaan arvo");
+                        String timeInput = (String) timePicker.getValue();
+                        
+                        
+                        
+                        // Muuta tässä input vastaamaan validia aikaa!!
+                        
+                        
+                        
+                        if (!timeInput.matches(timeService.validTimeRegex())) {
+                            timePicker.getEditor().requestFocus();
+                        }
+                    }
+                });
+
         Label descText = new Label("Tapahtuma:");
         
         TextField description = new TextField(initDescription);
@@ -268,7 +315,8 @@ public class ViikkokalenteriUi extends Application {
             String text = description.getText();
             if (date != null && !text.isBlank()) {
                 this.eventService.createEvent(datePicker.getValue(),
-                    description.getText());
+                    (String) timePicker.getValue(), description.getText(),
+                    timeToggle.isSelected());
                 eventsCreated.add(1);
                 this.setWeekScene();
                 Node source = (Node) event.getSource();
@@ -279,10 +327,14 @@ public class ViikkokalenteriUi extends Application {
         
         VBox newEventContainer = new VBox(10);
         newEventContainer.setPadding(new Insets(10, 10, 15, 10));
-        newEventContainer.getChildren().addAll(dateText, datePicker, descText,
-                description, createButton);
-        Scene newEventScene = new Scene(newEventContainer, 300, 170);
+        newEventContainer.getChildren().addAll(dateText, datePicker, timeToggle,
+                timePicker, descText, description, createButton);
+        Scene newEventScene = new Scene(newEventContainer);
         Stage newEventWindow = new Stage();
+        newEventWindow.setMinWidth(150);
+        newEventWindow.setMinHeight(260);
+        newEventWindow.setWidth(260);
+        newEventWindow.setHeight(260);
         newEventWindow.setTitle("Uusi tapahtuma");
         newEventWindow.setScene(newEventScene);
         newEventWindow.showAndWait();

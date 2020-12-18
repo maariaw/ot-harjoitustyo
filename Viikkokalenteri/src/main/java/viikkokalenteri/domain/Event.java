@@ -1,19 +1,30 @@
 
 package viikkokalenteri.domain;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
  * Class representing a user created event in the calendar.
  */
 public class Event {
-    private String date;
-    private String description;
-
-    public Event(String date, String description) {
+    private final String date;
+    private final String time;
+    private final String description;
+    private final boolean timed;
+    
+    public Event(String date, String time, String description, boolean timed) {
         this.date = date;
+        this.time = time;
         this.description = description;
+        this.timed = timed;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public boolean isTimed() {
+        return timed;
     }
 
     public String getDate() {
@@ -24,19 +35,12 @@ public class Event {
         return description;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 31 * hash + Objects.hashCode(this.date);
-        hash = 31 * hash + Objects.hashCode(this.description);
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.date);
+        hash = 71 * hash + Objects.hashCode(this.time);
+        hash = 71 * hash + Objects.hashCode(this.description);
         return hash;
     }
 
@@ -55,13 +59,12 @@ public class Event {
         if (!Objects.equals(this.date, other.date)) {
             return false;
         }
+        if (!Objects.equals(this.time, other.time)) {
+            return false;
+        }
         if (!Objects.equals(this.description, other.description)) {
             return false;
         }
         return true;
     }
-    
-    
-    
-    
 }

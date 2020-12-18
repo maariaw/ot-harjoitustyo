@@ -25,7 +25,7 @@ public class FileEventDao implements EventDao {
                 String[] parts = reader.nextLine().split(";");
                 String date = parts[0];
                 List<Event> daysEvents = events.getOrDefault(date, new ArrayList<>());
-                daysEvents.add(new Event(date, parts[1]));
+                daysEvents.add(new Event(date, parts[1], parts[2], Boolean.parseBoolean(parts[3])));
                 events.put(date, daysEvents);
             }
         } catch (Exception e) {
@@ -41,7 +41,9 @@ public class FileEventDao implements EventDao {
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (String date : events.keySet()) {
                 for (Event event : events.get(date)) {
-                    writer.write(event.getDate() + ";" + event.getDescription() + "\n");
+                    writer.write(event.getDate() + ";" + event.getTime() + ";"
+                            + event.getDescription() + ";"
+                            + String.valueOf(event.isTimed()) + "\n");
                 }
             }
         } 

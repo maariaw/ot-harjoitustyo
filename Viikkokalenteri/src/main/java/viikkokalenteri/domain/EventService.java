@@ -2,9 +2,9 @@
 package viikkokalenteri.domain;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import viikkokalenteri.dao.EventDao;
 
 /**
@@ -12,9 +12,13 @@ import viikkokalenteri.dao.EventDao;
  */
 public class EventService {
     private EventDao eventDao;
+    private Comparator<Event> comparator;
     
     public EventService(EventDao eventDao) {
         this.eventDao = eventDao;
+        this.comparator = Comparator
+                .comparing(Event::isTimed)
+                .thenComparing(Event::getTime);
     }
     
     /**
@@ -25,7 +29,9 @@ public class EventService {
      * @return  a list of events scheduled for the given date
      */
     public List<Event> getEventsForDay(LocalDate date) {
-        return this.eventDao.findEventsForDate(date.toString());
+        List<Event> eventsForDay = this.eventDao.findEventsForDate(date.toString());
+        Collections.sort(eventsForDay, comparator);
+        return eventsForDay;
     }
     
     /**
@@ -38,8 +44,8 @@ public class EventService {
      * 
      * @return  true if saving event is successful
      */
-    public boolean createEvent(LocalDate date, String description) {
-        Event event = new Event(date.toString(), description);
+    public boolean createEvent(LocalDate date, String time, String description, boolean timed) {
+        Event event = new Event(date.toString(), time, description, timed);
         try {   
             eventDao.create(event);
         } catch (Exception ex) {
