@@ -61,15 +61,17 @@ public class FileEventDao implements EventDao {
      * @return  the added event
      */
     @Override
-    public Event create(Event event) throws Exception {
+    public boolean create(Event event) throws Exception {
         String date = event.getDate();
         List<Event> daysEvents = events.getOrDefault(date, new ArrayList<>());
         if (!daysEvents.contains(event)) {
             daysEvents.add(event);
+        } else {
+            return false;
         }
         events.put(event.getDate(), daysEvents);
         save();
-        return event;
+        return true;
     }
     
     /**

@@ -335,10 +335,13 @@ public class ViikkokalenteriUi extends Application {
             LocalDate date = datePicker.getValue();
             String text = description.getText();
             if (date != null && !text.isBlank()) {
-                this.eventService.createEvent(datePicker.getValue(),
+                boolean added;
+                added = this.eventService.createEvent(datePicker.getValue(),
                     (String) timePicker.getValue(), description.getText(),
                     timeToggle.isSelected());
-                eventsCreated.add(1);
+                if (added) {
+                    eventsCreated.add(1);
+                }
                 this.setWeekScene();
                 Node source = (Node) event.getSource();
                 Stage stage = (Stage) source.getScene().getWindow();

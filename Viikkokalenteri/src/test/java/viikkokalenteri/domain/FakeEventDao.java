@@ -22,14 +22,16 @@ public class FakeEventDao implements EventDao {
     }
 
     @Override
-    public Event create(Event event) throws Exception {
+    public boolean create(Event event) throws Exception {
         String date = event.getDate();
         List<Event> daysEvents = events.getOrDefault(date, new ArrayList<>());
         if (!daysEvents.contains(event)) {
             daysEvents.add(event);
+        } else {
+            return false;
         }
         events.put(event.getDate(), daysEvents);
-        return event;
+        return true;
     }
 
     @Override

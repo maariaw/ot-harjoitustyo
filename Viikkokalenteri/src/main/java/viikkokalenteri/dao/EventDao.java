@@ -17,7 +17,7 @@ public interface EventDao {
      * 
      * @return  the given event
      */
-    Event create(Event event) throws Exception;
+    boolean create(Event event) throws Exception;
     
     /**
      * Retrieves all events stored by the EventDao.

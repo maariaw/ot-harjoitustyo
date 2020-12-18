@@ -49,12 +49,10 @@ public class EventService {
     public boolean createEvent(LocalDate date, String time, String description, boolean timed) {
         Event event = new Event(date.toString(), time, description, timed);
         try {   
-            eventDao.create(event);
+            return eventDao.create(event);
         } catch (Exception ex) {
             return false;
         }
-        
-        return true;
     }
     
     /**
