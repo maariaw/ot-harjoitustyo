@@ -4,6 +4,7 @@
 package viikkokalenteri.domain;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -17,7 +18,7 @@ public class TimeService {
     private GregorianCalendar calendar;
     private LocalDate date;
     private int yearWeekNow;
-    
+
     public TimeService() {
         this.calendar = new GregorianCalendar();
         this.setLocalDate();
@@ -149,43 +150,5 @@ public class TimeService {
      */
     public boolean isFuture() {
         return this.yearWeekNow < this.getYearWeek();
-    }
-    
-    public String[] dayAbbreviations() {
-        String[] dayAbbrList = {"Ma", "Ti", "Ke", "To", "Pe", "La", "Su"};
-        return dayAbbrList;
-    }
-    
-    public ObservableList<String> timeOptions() {
-        ArrayList<String> hours = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
-            String prefix;
-            if (i < 10) {
-                prefix = "0";
-            } else {
-                prefix = "";
-            }
-            hours.add(prefix + i);
-        }
-        String[] minutes = new String[]{"00", "15", "30", "45"};
-        ArrayList<String> times = new ArrayList<>();
-        for (String hour : hours) {
-            for (String minute : minutes) {
-                times.add(hour + ":" + minute);
-            }
-        }
-
-        return FXCollections.observableArrayList(times);
-    }
-
-    public String timeInputRegex() {
-        String timeRegex = "(|([0-2](|[0-9])(|:)(|[0-5])(|[0-9])" + "|"
-                                + "[0-9](|:)(|[0-5])(|[0-9])))";
-        return timeRegex;
-    }
-
-    public String validTimeRegex() {
-        String validRegex = "([0-1][0-9]|2[0-3]):[0-5][0-9]";
-        return validRegex;
     }
 }

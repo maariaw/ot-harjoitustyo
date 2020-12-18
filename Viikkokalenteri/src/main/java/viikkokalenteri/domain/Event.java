@@ -64,16 +64,11 @@ public class Event {
         if (this.timed != other.timed) {
             return false;
         }
-        if (!Objects.equals(this.date, other.date)) {
+        if (!Objects.equals(this.date, other.date) ||
+                !Objects.equals(this.time, other.time)) {
             return false;
         }
-        if (!Objects.equals(this.time, other.time)) {
-            return false;
-        }
-        if (!Objects.equals(this.description, other.description)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.description, other.description);
     }
 
 }

@@ -58,7 +58,7 @@ public class EventService {
     }
     
     /**
-     * Creates a non-timed Event object and saves it to the EventDao
+     * Creates a non-timed Event object and saves it to the EventDao.
      *
      * For testing purposes.
      *

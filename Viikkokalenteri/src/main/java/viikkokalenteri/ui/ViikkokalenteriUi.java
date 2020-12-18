@@ -85,7 +85,7 @@ public class ViikkokalenteriUi extends Application {
         FileEventDao eventDao = new FileEventDao(eventFile);
         this.timeService = new TimeService();
         this.eventService = new EventService(eventDao);
-        this.formatter = DateTimeFormatter.ofPattern("d'.'M'.'");
+        this.formatter = Localization.FORMATTER;
         this.layout = new VBox(8);
     }
     
@@ -167,7 +167,8 @@ public class ViikkokalenteriUi extends Application {
         
         createEvent.setOnAction((event) -> {
             this.makeNewEventWindow(
-                    this.timeService.getDate(), "", false, "00:00"
+                    this.timeService.getDate(), "", false,
+                    Localization.DEFAULT_TIME
             );
         });
         
@@ -205,7 +206,7 @@ public class ViikkokalenteriUi extends Application {
         VBox day = new VBox(5);
         VBox title = new VBox();
         Label daytitle = new Label(
-                timeService.dayAbbreviations()[dayOfWeekIndex]
+                Localization.DAY_ABBRS[dayOfWeekIndex]
                 + " " + fDate
         );
         daytitle.setFont(new Font("Arial", 16));
@@ -291,14 +292,14 @@ public class ViikkokalenteriUi extends Application {
         timeToggle.setAllowIndeterminate(false);
         timeToggle.setSelected(timed);
 
-        ComboBox timePicker = new ComboBox(timeService.timeOptions());
+        ComboBox timePicker = new ComboBox(Localization.TIMEOPTIONS);
         timePicker.setValue(initTime);
         timePicker.visibleProperty().bind(timeToggle.selectedProperty());
         timePicker.managedProperty().bind(timeToggle.selectedProperty());
         timePicker.setEditable(true);
         timePicker.getEditor().setTextFormatter(new TextFormatter<>(change ->
                 (change.getControlNewText()
-                        .matches(timeService.timeInputRegex())
+                        .matches(Localization.VALID_INPUT_REGEX)
                         ) ? change : null));
 
         timePicker.getEditor().focusedProperty()
@@ -319,7 +320,7 @@ public class ViikkokalenteriUi extends Application {
                             timeInput = timeFix.toString();
                             timePicker.setValue(timeInput);
                         }
-                        if (!timeInput.matches(timeService.validTimeRegex())) {
+                        if (!timeInput.matches(Localization.VALID_TIME_REGEX)) {
                             timePicker.getEditor().requestFocus();
                         }
                     }
@@ -347,7 +348,7 @@ public class ViikkokalenteriUi extends Application {
         
         BooleanBinding timeValid = Bindings.createBooleanBinding(() -> {
             return timePicker.getEditor().getText()
-                    .matches(timeService.validTimeRegex());
+                    .matches(Localization.VALID_TIME_REGEX);
         }, timePicker.getEditor().textProperty());
         createButton.disableProperty().bind(timeValid.not());
 
@@ -368,7 +369,7 @@ public class ViikkokalenteriUi extends Application {
     }
 
     public static void main(String[] args) {
-        Locale.setDefault(new Locale("fi", "FI"));
+        Locale.setDefault(Localization.LOCALE);
         launch(args);
     }
 }
