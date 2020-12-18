@@ -106,4 +106,28 @@ public class TimeServiceTest {
         int after = this.service.getYearWeekNow();
         assertThat(after, is(now));
     }
+
+    @Test
+    public void DateOfWeekDayIsCorrectForMonday() {
+        this.service.setDate(2020, 12, 18);
+        LocalDate monday = this.service.getDateOfWeekDay(0);
+        LocalDate actual = LocalDate.of(2020, 12, 14);
+        assertThat(monday, is(actual));
+    }
+
+    @Test
+    public void DateOfWeekDayIsCorrectForSunday() {
+        this.service.setDate(2020, 12, 18);
+        LocalDate sunday = this.service.getDateOfWeekDay(6);
+        LocalDate actual = LocalDate.of(2020, 12, 20);
+        assertThat(sunday, is(actual));
+    }
+
+    @Test
+    public void DateOfMondayIsCorrectIfIsSunday() {
+        this.service.setDate(2020, 12, 20);
+        LocalDate monday = this.service.getDateOfWeekDay(0);
+        LocalDate actual = LocalDate.of(2020, 12, 14);
+        assertThat(monday, is(actual));
+    }
 }

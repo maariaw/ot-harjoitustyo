@@ -8,7 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Class for storing variables that are specific to a locale.
+ * Class for matching, formatting and generating locale specific elements.
  */
 public class Localization {
     public static final Locale LOCALE = new Locale("fi", "FI");
