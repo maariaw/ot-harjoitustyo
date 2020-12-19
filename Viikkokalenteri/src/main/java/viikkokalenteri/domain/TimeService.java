@@ -3,25 +3,24 @@
 
 package viikkokalenteri.domain;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
+import viikkokalenteri.ui.Localization;
 
 /**
  * Class that provides methods for changing and querying the calendar time frame.
  */
 public class TimeService {
-    private GregorianCalendar calendar;
     private LocalDate date;
     private int yearWeekNow;
+    private TemporalField weekField;
 
     public TimeService() {
-        this.calendar = new GregorianCalendar();
-        this.setLocalDate();
+        this.date = LocalDate.now();
+        this.weekField = WeekFields.of(Localization.LOCALE)
+                .weekOfWeekBasedYear();
         this.yearWeekNow = this.getYearWeek();
     }
     
@@ -31,7 +30,7 @@ public class TimeService {
      * @return  week number of set time
      */
     public int getWeek() {
-        return calendar.get(Calendar.WEEK_OF_YEAR);
+        return date.get(weekField);
     }
     
     /**
@@ -47,16 +46,14 @@ public class TimeService {
      * Puts the calendar one week forward from its currently set time.
      */
     public void nextWeek() {
-        calendar.add(Calendar.DAY_OF_YEAR, 7);
-        this.setLocalDate();
+        this.date = this.date.plusWeeks(1);
     }
     
     /**
      * Puts the calendar one week backward from its currently set time.
      */
     public void lastWeek() {
-        calendar.add(Calendar.DAY_OF_YEAR, -7);
-        this.setLocalDate();
+        this.date = this.date.minusWeeks(1);
     }
     
     /**
@@ -67,31 +64,18 @@ public class TimeService {
      * @param   day   Day of month to be set
      */
     public void setDate(int year, int month, int day) {
-        this.calendar.set(year, month - 1, day);
-        this.setLocalDate();
-    }
-    
-    public Calendar getCalendar() {
-        return this.calendar;
+        this.date = LocalDate.of(year, month, day);
     }
     
     /**
      * Returns an integer representing the current day of the week that the
      * calendar is set to.
-     * <p>
-     * In the calendar object a Sunday is represented by number 1, so this method
-     * converts the numbering to start from Monday and zero.
      * 
      * @return  day of week as integer (0 = Monday) of set time
      */
     private int getWeekDayIndex() {
-        int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
-        int dayIndex;
-        if (weekDay == 1) {
-            dayIndex = 6;
-        } else {
-            dayIndex = weekDay - 2;
-        }
+        DayOfWeek weekDay = this.date.getDayOfWeek();
+        int dayIndex = weekDay.getValue() - 1;
         return dayIndex;
     }
     
@@ -110,25 +94,14 @@ public class TimeService {
     }
     
     /**
-     * Sets the object variable date to represent the date that the calendar
-     * is currently set to.
-     */
-    private void setLocalDate() {
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        int month = calendar.get(Calendar.MONTH) + 1;
-        int year = calendar.get(Calendar.YEAR);
-        this.date = LocalDate.of(year, month, day);
-    }
-    
-    /**
      * Returns an integer representing the year and number of week that the
      * calendar is currently set to.
      * 
      * @return  year and week identifier of set time
      */
     public int getYearWeek() {
-        int year = calendar.get(Calendar.YEAR);
-        int week = calendar.get(Calendar.WEEK_OF_YEAR);
+        int year = date.getYear();
+        int week = date.get(weekField);
         return year * 100 + week;
     }
     

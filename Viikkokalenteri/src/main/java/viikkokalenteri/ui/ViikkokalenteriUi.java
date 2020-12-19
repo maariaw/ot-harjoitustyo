@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.Properties;
@@ -47,6 +46,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import viikkokalenteri.dao.FileEventDao;
 import viikkokalenteri.domain.Event;
@@ -166,10 +166,8 @@ public class ViikkokalenteriUi extends Application {
         days.setPadding(new Insets(0, 5, 5, 5));
         
         createEvent.setOnAction((event) -> {
-            this.makeNewEventWindow(
-                    this.timeService.getDate(), "", false,
-                    Localization.DEFAULT_TIME
-            );
+            eventWindow(eventService.eventTemplate(timeService.getDate()),
+                    true);
         });
         
         layout.getChildren().add(pictureframe);
@@ -253,14 +251,7 @@ public class ViikkokalenteriUi extends Application {
             MenuItem edit = new MenuItem("Muokkaa");
             menu.getItems().add(edit);
             edit.setOnAction((choice) -> {
-                boolean changed = makeNewEventWindow(
-                        LocalDate.parse(event.getDate()),
-                        event.getDescription(),
-                        event.isTimed(), event.getTime());
-                if (changed) {
-                    eventService.removeEvent(event);
-                    setWeekScene();
-                }
+                eventWindow(event, false);
             });
 
             eventdesc.setContextMenu(menu);
@@ -275,51 +266,38 @@ public class ViikkokalenteriUi extends Application {
             BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         return day;
     }
-
+    
     /**
-     * Opens a new window for the event creation.
+     * Opens a new window for event creation or editing.
      */
-    private boolean makeNewEventWindow(LocalDate initDate,
-            String initDescription, boolean timed, String initTime) {
-        ArrayList<Integer> eventsCreated = new ArrayList<>();
-
+    private void eventWindow(Event event, boolean isNew) {
         Label dateText = new Label("Päivä:");
         
-        DatePicker datePicker = new DatePicker(initDate);
+        DatePicker datePicker = new DatePicker(LocalDate.parse(event.getDate()));
         datePicker.setEditable(false);
 
         CheckBox timeToggle = new CheckBox("Aseta aika");
         timeToggle.setAllowIndeterminate(false);
-        timeToggle.setSelected(timed);
+        timeToggle.setSelected(event.isTimed());
 
         ComboBox timePicker = new ComboBox(Localization.TIMEOPTIONS);
-        timePicker.setValue(initTime);
+        timePicker.setValue(event.getTime());
+        // You can only pick a time if the above checkbox is selected
         timePicker.visibleProperty().bind(timeToggle.selectedProperty());
         timePicker.managedProperty().bind(timeToggle.selectedProperty());
         timePicker.setEditable(true);
+        // Restricting and autocorrecting time input
         timePicker.getEditor().setTextFormatter(new TextFormatter<>(change ->
                 (change.getControlNewText()
                         .matches(Localization.VALID_INPUT_REGEX)
                         ) ? change : null));
-
         timePicker.getEditor().focusedProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (!newValue) {
                         String timeInput = (String) timePicker.getValue();
-                        int inputSize = timeInput.length();
-                        StringBuilder timeFix = new StringBuilder();
-                        if (inputSize > 2) {
-                            if (inputSize > 3) {
-                                timeFix.append(timeInput.subSequence(0, 2));
-                            } else {
-                                timeFix.append("0");
-                                timeFix.append(timeInput.charAt(0));
-                            }
-                            timeFix.append(":");
-                            timeFix.append(timeInput.substring(inputSize - 2));
-                            timeInput = timeFix.toString();
-                            timePicker.setValue(timeInput);
-                        }
+                        timeInput = Localization.timeAutoCorrect(timeInput);
+                        timePicker.setValue(timeInput);
+
                         if (!timeInput.matches(Localization.VALID_TIME_REGEX)) {
                             timePicker.getEditor().requestFocus();
                         }
@@ -328,22 +306,29 @@ public class ViikkokalenteriUi extends Application {
 
         Label descText = new Label("Tapahtuma:");
         
-        TextField description = new TextField(initDescription);
+        TextField description = new TextField(event.getDescription());
         
-        Button createButton = new Button("Vie kalenteriin");
-        createButton.setOnAction((event) -> {
+        Button okButton = new Button();
+        if (isNew) {
+            okButton.setText("Vie kalenteriin");
+        } else {
+            okButton.setText("Tallenna muutokset");
+        }
+        okButton.setOnAction((press) -> {
             LocalDate date = datePicker.getValue();
             String text = description.getText();
             if (date != null && !text.isBlank()) {
-                boolean added;
-                added = this.eventService.createEvent(datePicker.getValue(),
-                    (String) timePicker.getValue(), description.getText(),
-                    timeToggle.isSelected());
-                if (added) {
-                    eventsCreated.add(1);
+                if (isNew) {
+                    this.eventService.createEvent(datePicker.getValue(),
+                            (String) timePicker.getValue(),
+                            description.getText(), timeToggle.isSelected());
+                } else {
+                    this.eventService.editEvent(event, datePicker.getValue(),
+                            (String) timePicker.getValue(),
+                            description.getText(), timeToggle.isSelected());
                 }
                 this.setWeekScene();
-                Node source = (Node) event.getSource();
+                Node source = (Node) press.getSource();
                 Stage stage = (Stage) source.getScene().getWindow();
                 stage.close();
             }
@@ -353,22 +338,27 @@ public class ViikkokalenteriUi extends Application {
             return timePicker.getEditor().getText()
                     .matches(Localization.VALID_TIME_REGEX);
         }, timePicker.getEditor().textProperty());
-        createButton.disableProperty().bind(timeValid.not());
+        okButton.disableProperty().bind(timeValid.not());
 
         VBox newEventContainer = new VBox(10);
         newEventContainer.setPadding(new Insets(10, 10, 15, 10));
         newEventContainer.getChildren().addAll(dateText, datePicker, timeToggle,
-                timePicker, descText, description, createButton);
+                timePicker, descText, description, okButton);
         Scene newEventScene = new Scene(newEventContainer);
         Stage newEventWindow = new Stage();
         newEventWindow.setMinWidth(150);
         newEventWindow.setMinHeight(260);
         newEventWindow.setWidth(260);
         newEventWindow.setHeight(260);
-        newEventWindow.setTitle("Uusi tapahtuma");
+        if (isNew) {
+            newEventWindow.setTitle("Uusi tapahtuma");
+        } else {
+            newEventWindow.setTitle("Muokkaa tapahtumaa");
+        }
         newEventWindow.setScene(newEventScene);
-        newEventWindow.showAndWait();
-        return !eventsCreated.isEmpty();
+        newEventWindow.initModality(Modality.NONE);
+        newEventWindow.initOwner(layout.getScene().getWindow());
+        newEventWindow.show();
     }
 
     public static void main(String[] args) {

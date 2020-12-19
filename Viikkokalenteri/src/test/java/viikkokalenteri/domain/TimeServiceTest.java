@@ -1,10 +1,7 @@
 package viikkokalenteri.domain;
 
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Date;
 import static org.hamcrest.Matchers.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,13 +58,9 @@ public class TimeServiceTest {
 
     @Test
     public void dateIsTodayWhenCreated() {
-        Date expectedDate = new Date();
-        Calendar calendar = this.service.getCalendar();
-        Date actualDate = calendar.getTime();
-        SimpleDateFormat format = new SimpleDateFormat();
-        String expectedString = format.format(expectedDate);
-        String actualString = format.format(actualDate);
-        assertThat(actualString, is(equalTo(expectedString)));
+        LocalDate expectedDate = LocalDate.now();
+        LocalDate calendarDate = service.getDate();
+        assertThat(calendarDate, is(expectedDate));
     }
 
     @Test

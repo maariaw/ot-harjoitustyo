@@ -61,7 +61,7 @@ public class EventServiceTest {
         assertThat(events, is(empty()));
     }
 
-     @Test
+    @Test
     public void removeEventRemovesOnlyOneEvent() {
         LocalDate paiva = LocalDate.of(2024, 2, 14);
         String kuvaus1 = "Ystävänpäivä";
@@ -71,6 +71,46 @@ public class EventServiceTest {
         Event event = new Event(paiva.toString(), kuvaus1);
         this.service.removeEvent(event);
         List<Event> events = this.service.getEventsForDay(paiva);
+        assertThat(events.size(), is(1));
+    }
+
+    @Test
+    public void editEventKeepsEventTheSameIfSameParameters() {
+        LocalDate date = LocalDate.of(2077, 6, 8);
+        String time = "07:07";
+        String description = "Cyberpunk";
+        boolean timed = true;
+        Event event = new Event(date.toString(), time, description, timed);
+        service.createEvent(date, time, description, timed);
+        service.editEvent(event, date, time, description, timed);
+        List<Event> events = this.service.getEventsForDay(date);
+        assertThat(events.get(0), is(event));
+    }
+
+    @Test
+    public void editEventDoesntAddEvents() {
+        LocalDate date = LocalDate.of(2077, 6, 8);
+        String time = "07:07";
+        String description = "Cyberpunk";
+        boolean timed = true;
+        Event event = new Event(date.toString(), time, description, timed);
+        service.createEvent(date, time, description, timed);
+        service.editEvent(event, date, time, "Cyberpunk2077", timed);
+        List<Event> events = this.service.getEventsForDay(date);
+        assertThat(events.size(), is(1));
+    }
+
+    @Test
+    public void editEventChangesDateCorrectly() {
+        LocalDate date = LocalDate.of(2077, 6, 8);
+        LocalDate newDate = LocalDate.of(2020, 12, 10);
+        String time = "00:00";
+        String description = "Cyberpunk";
+        boolean timed = true;
+        Event event = new Event(date.toString(), time, description, timed);
+        service.createEvent(date, time, description, timed);
+        service.editEvent(event, newDate, time, description, timed);
+        List<Event> events = this.service.getEventsForDay(newDate);
         assertThat(events.size(), is(1));
     }
 }

@@ -2,6 +2,7 @@
 package viikkokalenteri.domain;
 
 import java.util.Objects;
+import viikkokalenteri.ui.Localization;
 
 /**
  * Class representing a user created event in the calendar.
@@ -13,7 +14,7 @@ public class Event {
     private final boolean timed;
     
     public Event(String date, String description) {
-        this(date, "00:00", description, false);
+        this(date, Localization.DEFAULT_TIME, description, false);
     }
 
     public Event(String date, String time, String description, boolean timed) {

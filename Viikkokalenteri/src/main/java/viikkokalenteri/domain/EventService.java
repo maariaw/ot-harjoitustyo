@@ -29,7 +29,8 @@ public class EventService {
      * @return  a list of events scheduled for the given date
      */
     public List<Event> getEventsForDay(LocalDate date) {
-        List<Event> eventsForDay = this.eventDao.findEventsForDate(date.toString());
+        List<Event> eventsForDay = this.eventDao
+                .findEventsForDate(date.toString());
         Collections.sort(eventsForDay, comparator);
         return eventsForDay;
     }
@@ -42,11 +43,13 @@ public class EventService {
      * @param   description Description of the event
      * @param   timed       True if time was set by user
      *
-     * @see     viikkokalenteri.dao.FileEventDao#create(viikkokalenteri.domain.Event) 
+     * @see     viikkokalenteri.dao.FileEventDao
+     *          #create(viikkokalenteri.domain.Event)
      *
      * @return  true if saving event is successful
      */
-    public boolean createEvent(LocalDate date, String time, String description, boolean timed) {
+    public boolean createEvent(LocalDate date, String time, String description,
+            boolean timed) {
         Event event = new Event(date.toString(), time, description, timed);
         try {   
             return eventDao.create(event);
@@ -63,12 +66,48 @@ public class EventService {
      * @param   date        Date of the event
      * @param   description Description of the event
      *
-     * @see     viikkokalenteri.domain.EventService#createEvent(java.time.LocalDate, java.lang.String, java.lang.String, boolean)
+     * @see     viikkokalenteri.domain.EventService
+     *          #createEvent(java.time.LocalDate, java.lang.String,
+     *          java.lang.String, boolean)
      *
      * @return  true if saving event is successful
      */
     public boolean createEvent(LocalDate date, String description) {
         return this.createEvent(date, "00:00", description, false);
+    }
+
+    /**
+     * Creates a new event if the given parameters differ from the given event,
+     * and then removes the old event. Does nothing if the event is not changed.
+     *
+     * @see     viikkokalenteri.domain.EventService
+     *          #createEvent(java.time.LocalDate, java.lang.String,
+     *          java.lang.String, boolean)
+     * @see     viikkokalenteri.domain.EventService
+     *          #removeEvent(viikkokalenteri.domain.Event)
+     *
+     * @param   event       The old event
+     * @param   date        The desired date of the event
+     * @param   time        The desired time of the event
+     * @param   description The desired description of the event
+     * @param   timed       True if time has been set by user
+     */
+    public void editEvent(Event event, LocalDate date, String time,
+            String description, boolean timed) {
+        if (createEvent(date, time, description, timed)) {
+            removeEvent(event);
+        }
+    }
+
+    /**
+     * Returns an instance of Event with given date, default time, blank
+     * description and false for timed tag
+     *
+     * @param   date    Date for the event
+     * @return  a blank event with specified date
+     */
+    public Event eventTemplate(LocalDate date) {
+        return new Event(date.toString(), "");
     }
 
     /**

@@ -18,11 +18,36 @@ public class Localization {
             "([0-1][0-9]|2[0-3]):[0-5][0-9]";
     public static final String VALID_INPUT_REGEX =
             "(|([0-2](|[0-9])(|:)(|[0-5])(|[0-9])|[0-9](|:)(|[0-5])(|[0-9])))";
+    public static final String VALID_SHORT_INPUT_REGEX = "[0-9]:[0-5][0-9]";
     public static final String[] DAY_ABBRS = {
         "Ma", "Ti", "Ke", "To", "Pe", "La", "Su"
     };
     public static final ObservableList<String> TIMEOPTIONS = timeOptions();
     public static final String DEFAULT_TIME = "00:00";
+
+    public static String timeAutoCorrect(String timeInput) {
+        int inputSize = timeInput.length();
+        StringBuilder timeFix = new StringBuilder();
+        if (inputSize > 2) {
+            if (!timeInput.contains(":")) {
+                if (inputSize > 3) {
+                    timeFix.append(timeInput.subSequence(0, 2));
+                } else {
+                    timeFix.append("0");
+                    timeFix.append(timeInput.charAt(0));
+                }
+                timeFix.append(":");
+                timeFix.append(timeInput.substring(inputSize - 2));
+                timeInput = timeFix.toString();
+            } else if (timeInput.matches(
+                    Localization.VALID_SHORT_INPUT_REGEX)) {
+                timeFix.append("0");
+                timeFix.append(timeInput);
+                timeInput = timeFix.toString();
+            }
+        }
+        return timeInput;
+    }
 
     /**
      * Static method for generating an ObservableList of time options such as
