@@ -8,7 +8,9 @@ Lataa tiedosto [Viikkokalenteri.jar](https://github.com/maariaw/ot-harjoitustyo/
 
 Ohjelma käynnistetään komennolla
 
-> java -jar Viikkokalenteri.jar
+```
+java -jar Viikkokalenteri.jar
+```
 
 ## Navigointi
 
