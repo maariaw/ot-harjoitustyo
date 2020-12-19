@@ -22,15 +22,15 @@ Kuvan alla vasemmalla on nappi "Uusi tapahtuma". Kun sitä painaa, avautuu uusi 
 
 ![Uusi tapahtuma -ikkuna](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/k-1.png)
 
-Valitse tapahtuman päivämäärä klikkaamalla päivämääräkentän oikeassa laidassa olevaa kalenteri-ikonia ja valitsemalla avautuvassa kalenterivalikosta klikkaamalla haluttu päivä.
+Valitse tapahtuman päivämäärä klikkaamalla päivämääräkentän oikeassa laidassa olevaa kalenteri-ikonia ja valitsemalla avautuvassa kalenterivalikosta klikkaamalla haluttu päivä. Kalenterivalikossa voi navigoida kuukausien ja vuosien välillä.
 
 ![Kalenterivalikko](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/k-2.png)
 
-Valikon yläreunassa on vasemmalla nuolinapit kuukausien välillä navigointiin ja oikeassa laidassa vuosien välillä navigointiin. Jos haluat asettaa tapahtumalle kellonajan, klikkaa valinta ruutuun "Aseta aika", jolloin avautuu valikko ajan asettamista varten.
+Jos haluat asettaa tapahtumalle kellonajan, klikkaa valinta ruutuun "Aseta aika", jolloin avautuu valikko ajan asettamista varten.
 
 ![Aikavalikko](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/k-3.png)
 
-Valikossa on aikavalinnat 15 minuutin välein, mutta haluamansa ajan voi myös kirjoittaa ruuutuun. Ruudussa on jonkin verran rajoitus- ja korjaustoimintoja, jotta valittu aika on oikean muotoinen. Tapahtumaa ei voi lisätä, jos kellonaika on virheellinen. Tapahtumalle täytyy myös antaa kuvaus, ennen kuin sen voi tallentaa painamalla "Vie kalenteriin"-nappia. Ajastetut tapahtumat näkyvät kalenterissa ajastamattomien jälkeen aikajärjestyksessä.
+Valikossa on aikavalinnat 15 minuutin välein, mutta haluamansa ajan voi myös kirjoittaa ruutuun. Ruudussa on jonkin verran rajoitus- ja korjaustoimintoja, jotta valittu aika on oikean muotoinen. Tapahtumaa ei voi lisätä, jos kellonaika on virheellinen. Tapahtumalle täytyy myös antaa kuvaus, ennen kuin sen voi tallentaa painamalla "Vie kalenteriin"-nappia. Ajastetut tapahtumat näkyvät kalenterissa ajastamattomien jälkeen aikajärjestyksessä.
 
 ![Tapahtumalista](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/kuvat/k-4.png)
 
