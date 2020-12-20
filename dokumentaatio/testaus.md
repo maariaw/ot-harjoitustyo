@@ -24,7 +24,7 @@ Testit eivät kata tilanteita, missä tapahtumat tallettavaan tiedostoon ei ole 
 
 ## Järjestelmätestaus
 
-Sovelluksen järjestelmätestaus on suoritettu manuaalisesti.
+Sovelluksen toimivuutta järjestelmässä ja käyttäjäinteraktioita on testattu manuaalisesti.
 
 ### Asennus ja konfigurointi
 
