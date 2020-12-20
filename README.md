@@ -11,6 +11,8 @@ Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistotekniikan kur
 
 [Arkkitehtuurikuvaus](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
 
+[Testausdokumentti](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/testaus.md)
+
 [Työaikakirjanpito](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/tuntikirjanpito.md)
 
 ## Releaset
