@@ -40,14 +40,14 @@ public class EventTest {
     }
 
     @Test
-    public void EqualWhenSameDateSameDescriptionNotTimed() {
+    public void equalWhenSameDateSameDescriptionNotTimed() {
         Event event1 = new Event("date", "thing");
         Event event2 = new Event("date", "thing");
         assertThat(event1, is(equalTo(event2)));
     }
 
     @Test
-    public void EqualWhenSameDateSameDescriptionSameTime() {
+    public void equalWhenSameDateSameDescriptionSameTime() {
         Event event1 = new Event("date", "time", "description", true);
         Event event2 = new Event("date", "time", "description", true);
         assertThat(event1, is(equalTo(event2)));
