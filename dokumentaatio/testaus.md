@@ -28,12 +28,22 @@ Sovelluksen järjestelmätestaus on suoritettu manuaalisesti.
 
 ### Asennus ja konfigurointi
 
+Sovellus on ladattu ja testattu Linux-käyttöjärjestelmällä noudattaen [käyttöohjetta](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/kayttoohje.md). Sovellus on testattu kolmessa tilanteessa:
 
+- konfiguraatio- ja tallennustiedostoja ei ole, ja sovellus luo ne
+- tiedostot on luotu aiemmassa käynnistyksessä ja ovat olemassa
+- tallennustiedosto on luotu manuaalisesti
 
 ### Toiminnallisuudet
 
-
+Kaikki [vaatimusmäärittelyssä](https://github.com/maariaw/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md) ja käyttöohjeessa kuvatut ominaisuudet on testattu. Syötekenttiin on yritetty laittaa myös ongelmallisia syötteitä, kuten tyhjää tai suuria syötteitä.
 
 ## Sovellukseen jääneet laatuongelmat
 
-Jos tapahtumat tallentavaan tiedostoon ei ole kirjoitusoikeuksia, käyttäjä ei välttämättä huomaa asiaa, koska tapahtumat tulevat näkyviin kalenteriin, mutta eivät tallennu pysyvästi, eikä asiasta tule virheilmoitusta. Viikkokalenteri käyttää myös eri tallennuspaikkaa riippuen siitä, käynnistääkö ohjelman komentoriviltä vai klikkaamalla kuvaketta. Kuvakkeesta käynnistetyn ohjelman tallennustiedosto ei tule kansioon näkyviin.
+Jos tapahtumat tallentavaan tiedostoon ei ole kirjoitusoikeuksia, käyttäjä ei välttämättä huomaa asiaa, koska tapahtumat tulevat näkyviin kalenteriin, mutta eivät tallennu pysyvästi, eikä asiasta tule virheilmoitusta.
+
+Viikkokalenterin luomat tiedostot toimivat virtuaalityöpöydällä odottamattomilla tavoilla, varsinkin jos koetti ajaa kahta eri kopiota sovelluksesta eri sijainneissa. Tiedostot eivät aina tulleet näkyviin tai yhden events.txt-tiedoston editoiminen johti muutoksiin toisessa. En ole kuitenkaan varma, johtuiko tämä kaikki vain virtuaalityöpöydästä, sama ei toistunut omalla koneella.
+
+Ohjelman saa kaatumaan, jos tapahtumaa luodessa syöttää kuvauskenttään sivukaupalla tekstiä. Tekstikentälle olisi syytä laatia joitain rajoituksia tämän estämiseksi.
+
+Jos päivän kohdalla on hyvin pitkä kuvaus tapahtumasta ja sitä klikkaa, valikko tapahtuman poistamista ja muokkaamista varten hyppää näytön ylälaitaan.
