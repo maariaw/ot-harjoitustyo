@@ -52,4 +52,4 @@ Klikkaamalla tapahtumaa ja avautuvasta valikosta "Muokkaa", avautuu ikkuna tapah
 
 ## Tapahtumien säilyminen
 
-Ohjelma luo .jar-tiedoston kanssa samaan kansioon tiedoston events.txt, johon tapahtumat tallennetaan. Älä siis hävitä tätä tiedostoa!
+Ohjelma luo .jar-tiedoston kanssa samaan kansioon tiedoston events.txt, johon tapahtumat tallennetaan. Älä siis hävitä tätä tiedostoa, jos haluat tapahtumiesi säilyvän kalenterissa! Ohjelma luo puuttuvan tilalle uuden tyhjän tiedoston tarvittaessa.
