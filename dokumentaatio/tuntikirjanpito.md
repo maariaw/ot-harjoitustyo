@@ -12,4 +12,8 @@ Päivä | Tunnit | Tehtävät
 3.12. | 1 | Sain kuvat toimimaan myös jar:na
 7.12. | 3,5 | JavaDocin luominen kaikelle oleelliselle
 8.12. | 6 | Arkkitehtuurikuvauksen laajentamista, yritin saada Koodikatselmus-issuen osoittaman toiminnan korjattua (en vielä onnistunut ja luovutin jotta saan toiminnallisuutta tehtyä), lisäsin mahdollisuuden poistaa tapahtuman, lisäsin config.properties-tiedoston luomisen tarvittaessa
-**_yht._** | 47,5 |  
+17.12. | 3,5 | Ominaisuuksien lisäämistä: Tapahtumaa voi muokata ja tapahtumalle voi laittaa kellonajan.
+18.12. | 10 | Ominaisuuksien lisäämistä: Tapahtuman kellonajan voi kirjoittaa kenttään, kentässä rajoituksia ja autocorrect. Testauksen ja javadocin laajentamista, bugien korjaamista, käyttöliittymän ulkonäön ja käytettävyyden parantelua.
+19.12. | 7 | Refaktorointia, testauksen ja javadocin laajentamista, käyttöohjeen laajentamista
+20.12. | 9 | Arkkitehtuurikuvauksen laajentamista, testausdokumentin laatiminen, vaatimusmäärittelyn päivittäminen, työaikakirjanpidon viimeistely
+**_yht._** | 77 |  
