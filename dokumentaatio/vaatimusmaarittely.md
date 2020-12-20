@@ -19,11 +19,11 @@ Sovelluksessa on yksi näkymä, joka aukeaa sovelluksen käynnistyessä. Sovellu
 * Käyttäjä voi selata kalenteria eteen- ja taaksepäin
 * Käyttäjä näkee viikon numeron, viikonpäivät maanantaista sunnuntaihin ja päivämäärät
 * Käyttäjä voi lisätä kalenteriin merkintöjä
-  * Merkinnällä on päivä, teksti ja valinnaisesti ajankohta
+  * Merkinnällä on päivä, teksti ja valinnaisesti (alku)ajankohta
 * Käyttäjä voi poistaa tekemiään merkintöjä
 * Käyttäjä näkee jokaisen päivän kohdalla sille päivälle kuuluvat merkinnät
   * Koko päivää koskevat merkinnät ovat ylimpänä
-  * Ajastetut merkinnät ovat kronologisessa järjestyksessä alkuajan mukaan
+  * Ajastetut merkinnät ovat kronologisessa järjestyksessä kellonajan mukaan
 * Sovelluksessa näkyy kuva
   * Kuva vaihtuu joka viikko
   * Menneet kuvat näkyvät, kun selaa taaksepäin, mutta tulevat kuvat eivät
