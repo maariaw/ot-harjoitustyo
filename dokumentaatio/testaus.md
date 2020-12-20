@@ -44,6 +44,6 @@ Jos tapahtumat tallentavaan tiedostoon ei ole kirjoitusoikeuksia, käyttäjä ei
 
 Viikkokalenterin luomat tiedostot toimivat virtuaalityöpöydällä odottamattomilla tavoilla, varsinkin jos koetti ajaa kahta eri kopiota sovelluksesta eri sijainneissa. Tiedostot eivät aina tulleet näkyviin tai yhden events.txt-tiedoston editoiminen johti muutoksiin toisessa. En ole kuitenkaan varma, johtuiko tämä kaikki vain virtuaalityöpöydästä, sama ei toistunut omalla koneella.
 
-Ohjelman saa kaatumaan, jos tapahtumaa luodessa syöttää kuvauskenttään sivukaupalla tekstiä. Tekstikentälle olisi syytä laatia joitain rajoituksia tämän estämiseksi.
+Ohjelman saa jumiin, jos tapahtuman kuvauskenttään laittaa jotain tarpeeksi eksoottista. En ehtinyt testauksessa selvittää, mitä tarkalleen tapahtuu ja miksi. Syötekenttää olisi syytä rajoittaa virheen estämiseksi.
 
 Jos päivän kohdalla on hyvin pitkä kuvaus tapahtumasta ja sitä klikkaa, valikko tapahtuman poistamista ja muokkaamista varten hyppää näytön ylälaitaan.
