@@ -1,7 +1,7 @@
 # Viikkokalenteri
 Sovellus on tarkoitettu avuksi ja iloksi viikoittaisen agendan suunnittelussa. Seitsemän päivän tärkeiden tapahtumien ja merkintöjen lisäksi kalenterinäkymässä on viikoittain vaihtuva kuva.
 
-Tämä sovellus rakentuu hiljalleen Helsingin yliopiston Ohjelmistotekniikan kurssin harjoitustyönä.
+Tämä sovellus rakentui syksyn 2020 toisen periodin aikana Helsingin yliopiston Ohjelmistotekniikan kurssin harjoitustyönä.
 
 ## Dokumentaatio
 
